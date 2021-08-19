@@ -12,6 +12,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
+        tabBarItem.image = UIImage(systemName: "film")
+        tabBarItem.title = "Trending movies"
     }
 
 
