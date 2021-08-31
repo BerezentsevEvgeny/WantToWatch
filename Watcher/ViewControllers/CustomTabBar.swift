@@ -12,14 +12,13 @@ class CustomTabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let bar1 = createTabBaerController(vc: MainViewController(), title: "Search", image: UIImage(systemName: "film")!)
+        let bar1 = createTabBaerController(vc: MainViewController(), title: "Trending movies", image: UIImage(systemName: "film")!)
 
         viewControllers = [bar1]
     }
     
     
-    func createTabBaerController(vc: UIViewController, title: String, image: UIImage) -> UINavigationController {
-//        vc.navigationItem.title = title
+    private func createTabBaerController(vc: UIViewController, title: String, image: UIImage) -> UINavigationController {
         let navController = UINavigationController(rootViewController: vc)
         navController.title = title
         navController.tabBarItem.image = image

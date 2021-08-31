@@ -12,8 +12,10 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
-        tabBarItem.image = UIImage(systemName: "film")
-        tabBarItem.title = "Trending movies"
+//        tabBarItem.image = UIImage(systemName: "film")
+//        tabBarItem.title = "Trending movies"
+        title = "Trending movies"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     
