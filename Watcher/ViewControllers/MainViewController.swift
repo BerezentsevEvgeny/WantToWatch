@@ -7,7 +7,7 @@
 
 import AlamofireImage
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UICollectionViewDelegate {
     
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
     private var trendingMovies = [Movie]()
@@ -23,11 +23,14 @@ class MainViewController: UIViewController {
         title = "Trending movies"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = mainView.searchController
+        navigationItem.searchController?.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
+        mainView.collectionView.delegate = self
         createDataSource()
         getTrendingMovies()
         createSnapshot()
     }
+    
     
     private func createDataSource() {
         let registration = UICollectionView.CellRegistration<MainCollectionViewCell,Movie> { cell, indexPath, movie in
@@ -61,9 +64,36 @@ class MainViewController: UIViewController {
             }
         }
     }
-
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController()
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    
+    
+}
 
+
+extension MainViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(loadSearchedMovies), object: nil)
+        perform(#selector(loadSearchedMovies), with: nil, afterDelay: 0.2)
+    }
+    
+    @objc func loadSearchedMovies() {
+        let movieToSearch = navigationItem.searchController?.searchBar.text
+        let searchVC = navigationItem.searchController?.searchResultsController as? SearchTableViewController
+//        searchVC?.delegate = self //////
+        if movieToSearch != "" {
+            SearchControllerModel.shared.fetchSearchedMoviesData(movieTosearch: movieToSearch ?? "") {
+                DispatchQueue.main.async {
+                    searchVC?.tableView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 extension MainViewController {

@@ -13,7 +13,6 @@ class MainView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
         collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.keyboardDismissMode = .onDrag
         return collectionView
     }()
     
