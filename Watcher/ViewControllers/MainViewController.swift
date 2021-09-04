@@ -7,6 +7,10 @@
 
 import AlamofireImage
 
+protocol SearchTableViewControllerDelegate {
+    func goToDetailVC(with movie: Movie)
+}
+
 class MainViewController: UIViewController, UICollectionViewDelegate {
     
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
@@ -66,15 +70,28 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailViewController = DetailViewController()
-        navigationController?.pushViewController(detailViewController, animated: true)
+        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
+        goToDetailVC(with: selectedMovie)
     }
     
     
     
 }
 
+// MARK: - DetailVC
+extension MainViewController: SearchTableViewControllerDelegate {
+    func goToDetailVC(with movie: Movie) {
+        let detailViewController = DetailViewController()
+        detailViewController.selectedMovie = movie
+//        detailViewController.overviewLabel.text = movie.overview
+        guard let imageString = movie.posterImage else { return }
+        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
+        detailViewController.posterImageView.af.setImage(withURL: url!)
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
 
+// MARK: - SearchBar Delegate
 extension MainViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -85,7 +102,7 @@ extension MainViewController: UISearchBarDelegate {
     @objc func loadSearchedMovies() {
         let movieToSearch = navigationItem.searchController?.searchBar.text
         let searchVC = navigationItem.searchController?.searchResultsController as? SearchTableViewController
-//        searchVC?.delegate = self //////
+        searchVC?.delegate = self
         if movieToSearch != "" {
             SearchControllerModel.shared.fetchSearchedMoviesData(movieTosearch: movieToSearch ?? "") {
                 DispatchQueue.main.async {

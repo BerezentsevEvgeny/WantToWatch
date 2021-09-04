@@ -8,7 +8,9 @@
 import UIKit
 
 class SearchTableViewController: UITableViewController {
-
+        
+    var delegate: SearchTableViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
@@ -32,21 +34,25 @@ class SearchTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ///
+        let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
+        delegate?.goToDetailVC(with: selectedMovie)
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { _, _, Hides in
+            let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
+            StorageManager.shared.watchList.append(selectedMovie)
+            Hides(true)
+        }
+        addToWatchlist.backgroundColor = .systemBlue
+        return UISwipeActionsConfiguration(actions: [addToWatchlist])
     }
-    */
-
-
-
-
-
+    
+ 
+    
 
 }
+
+
+    
+
