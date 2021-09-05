@@ -24,10 +24,19 @@ class DetailViewController: UIViewController {
         let overviewLabel = UILabel()
         overviewLabel.translatesAutoresizingMaskIntoConstraints = false
         overviewLabel.textAlignment = .center
+        overviewLabel.font = .boldSystemFont(ofSize: 17)
         overviewLabel.numberOfLines = 0
-        overviewLabel.text = "Hello"
-        overviewLabel.textColor = .black
         return overviewLabel
+    }()
+    
+    var addToWatchlistButton: UIButton = {
+        let button = UIButton(type: .roundedRect, primaryAction: nil)
+        button.backgroundColor = .systemBlue
+        button.setTitle("Add to Watchlist", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
 
     override func viewDidLoad() {
@@ -41,22 +50,25 @@ class DetailViewController: UIViewController {
     private func setupSubviews() {
         view.addSubview(posterImageView)
         view.addSubview(overviewLabel)
+        view.addSubview(addToWatchlistButton)
+
         
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            posterImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor,constant: -80),
+            posterImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             posterImageView.widthAnchor.constraint(equalToConstant: 200),
             posterImageView.heightAnchor.constraint(equalToConstant: 320),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 20),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            overviewLabel.heightAnchor.constraint(equalToConstant: 200)
-
+            overviewLabel.heightAnchor.constraint(equalToConstant: 200),
+            
+            addToWatchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addToWatchlistButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
+            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 200)
         ])
-        
+                
     }
     
 

@@ -13,7 +13,7 @@ struct MoviesData: Decodable {
     }
 }
 
-struct Movie : Decodable, Hashable {
+struct Movie : Codable, Hashable {
     let title: String?
     let year: String?
     let rate: Double?

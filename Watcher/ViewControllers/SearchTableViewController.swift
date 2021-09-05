@@ -42,6 +42,7 @@ class SearchTableViewController: UITableViewController {
         let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { _, _, Hides in
             let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
             StorageManager.shared.watchList.append(selectedMovie)
+            StorageManager.shared.save()
             Hides(true)
         }
         addToWatchlist.backgroundColor = .systemBlue

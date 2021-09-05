@@ -9,6 +9,7 @@ import Foundation
 
 class StorageManager {
     
+    let userDefaults = UserDefaults.standard
     let updateNotification = Notification.Name("watchlistUpdated")
     
     static let shared = StorageManager()
@@ -19,12 +20,20 @@ class StorageManager {
         }
     }
     
-    private init() {}
+    private init() {
+        watchList = fetchWatchlist()
+    }
     
-//    func save(with items: [Movie]) {
-//        UserDefaults.standard.setValue(items, forKey: "savedMovies")
-//    }
+    func save() {
+        guard let data = try? JSONEncoder().encode(watchList) else { return }
+        userDefaults.set(data, forKey: "watchlist")
+    }
     
+    func fetchWatchlist() -> [Movie] {
+        guard let data = UserDefaults.standard.object(forKey: "watchlist") as? Data else { return [] }
+        guard let savedWatchlist = try? JSONDecoder().decode([Movie].self, from: data) else { return [] }
+        return savedWatchlist
+    }
     
     
     
