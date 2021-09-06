@@ -34,6 +34,7 @@ class SearchTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
         delegate?.goToDetailVC(with: selectedMovie)
     }
@@ -41,8 +42,10 @@ class SearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { _, _, Hides in
             let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
-            StorageManager.shared.watchList.append(selectedMovie)
-            StorageManager.shared.save()
+            if !StorageManager.shared.watchList.contains(selectedMovie) {
+                StorageManager.shared.watchList.append(selectedMovie)
+                StorageManager.shared.save()
+            }
             Hides(true)
         }
         addToWatchlist.backgroundColor = .systemBlue
