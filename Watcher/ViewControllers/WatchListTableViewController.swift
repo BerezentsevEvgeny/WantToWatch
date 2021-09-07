@@ -57,7 +57,9 @@ class WatchListTableViewController: UITableViewController {
         }
     }
     
+    
     private func createSnapshot() {
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section,Movie>()
         snapshot.appendSections([.first])
         snapshot.appendItems(StorageManager.shared.watchList)
