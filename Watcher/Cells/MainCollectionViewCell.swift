@@ -15,7 +15,6 @@ class MainCollectionViewCell: UICollectionViewCell {
         return posterImageView
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
