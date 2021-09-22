@@ -35,7 +35,4 @@ class StorageManager {
         return savedWatchlist
     }
     
-    
-    
-    
 }

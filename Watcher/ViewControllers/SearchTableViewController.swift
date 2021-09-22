@@ -52,9 +52,6 @@ class SearchTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [addToWatchlist])
     }
     
- 
-    
-
 }
 
 

@@ -35,7 +35,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         createSnapshot()
     }
     
-    
     private func createDataSource() {
         let registration = UICollectionView.CellRegistration<MainCollectionViewCell,Movie> { cell, indexPath, movie in
             guard let posterImage = movie.posterImage else { return }
@@ -73,7 +72,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
         goToDetailVC(with: selectedMovie)
     }
-    
     
     
 }

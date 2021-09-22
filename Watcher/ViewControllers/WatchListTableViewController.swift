@@ -57,7 +57,6 @@ class WatchListTableViewController: UITableViewController {
         }
     }
     
-    
     private func createSnapshot() {
         
         var snapshot = NSDiffableDataSourceSnapshot<Section,Movie>()
