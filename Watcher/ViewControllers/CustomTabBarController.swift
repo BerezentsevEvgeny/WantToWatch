@@ -7,15 +7,19 @@
 
 import UIKit
 
-class CustomTabBar: UITabBarController {
+class CustomTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let barOne = createTabBarController(vc: MainViewController(), title: "Trending movies", image: UIImage(systemName: "film")!)
+        let barOne = createTabBarController(vc: MainViewController(),
+                                            title: "Trending movies",
+                                            image: UIImage(systemName: "film")!)
 
-        let barTwo = createTabBarController(vc: WatchListTableViewController(), title: "Watchlist", image: UIImage(systemName: "list.star")!)
-
+        let barTwo = createTabBarController(vc: WatchListTableViewController(),
+                                            title: "Watchlist",
+                                            image: UIImage(systemName: "list.star")!)
+        
         viewControllers = [barOne, barTwo]
     }
     

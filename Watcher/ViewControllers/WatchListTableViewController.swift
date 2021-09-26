@@ -9,7 +9,6 @@ import UIKit
 
 class WatchListTableViewController: UITableViewController {
     
-    // -
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
     
 //    var movies: [Movie] = []
@@ -21,6 +20,7 @@ class WatchListTableViewController: UITableViewController {
 //        } else {
 //            movies = StorageManager.shared.watchList
 //        }
+        configButton()
         title = "Watchlist"
         tableView.rowHeight = 100
         navigationItem.leftBarButtonItem = editButtonItem
@@ -69,6 +69,16 @@ class WatchListTableViewController: UITableViewController {
         createSnapshot()
     }
     
+    func configButton() {
+        let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfo))
+        navigationItem.rightBarButtonItem = button
+    }
+    
+    @objc func presentInfo() {
+        let infoVC = InfoViewController()
+        let navVC = UINavigationController(rootViewController: infoVC)
+        present(navVC, animated: true)
+    }
 
     
     
