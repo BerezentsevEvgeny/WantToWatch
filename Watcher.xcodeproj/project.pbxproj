@@ -13,15 +13,15 @@
 		634C06AF26DFC97800861B26 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06AE26DFC97800861B26 /* MainView.swift */; };
 		634C06B126DFD60E00861B26 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B026DFD60E00861B26 /* SearchTableViewController.swift */; };
 		634C06B426DFDCBD00861B26 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B326DFDCBD00861B26 /* MovieModel.swift */; };
-		634C06B726DFDDC500861B26 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B626DFDDC500861B26 /* MainCollectionViewCell.swift */; };
+		634C06B726DFDDC500861B26 /* TrendingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */; };
 		63620CB926E138F700B286AB /* SearchControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63620CB826E138F700B286AB /* SearchControllerModel.swift */; };
 		63620CBB26E1398400B286AB /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63620CBA26E1398400B286AB /* SearchTableViewCell.swift */; };
 		63620CBE26E1400800B286AB /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63620CBD26E1400800B286AB /* StorageManager.swift */; };
-		639A92CE27005CC40047FDC9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A92CD27005CC40047FDC9 /* InfoViewController.swift */; };
+		639A92CE27005CC40047FDC9 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */; };
 		63A0777C26CE5FC4003F4B48 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A0777B26CE5FC4003F4B48 /* CustomTabBarController.swift */; };
 		63F045C626E4F13D00781103 /* WatchlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F045C526E4F13D00781103 /* WatchlistTableViewCell.swift */; };
 		63F900C226CD402400585B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F900C126CD402400585B7E /* AppDelegate.swift */; };
-		63F900C626CD402400585B7E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F900C526CD402400585B7E /* MainViewController.swift */; };
+		63F900C626CD402400585B7E /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F900C526CD402400585B7E /* TrendingViewController.swift */; };
 		63F900CB26CD402500585B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CA26CD402500585B7E /* Assets.xcassets */; };
 		63F900CE26CD402500585B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CC26CD402500585B7E /* LaunchScreen.storyboard */; };
 		9718A97419397D0123F26A6C /* Pods_Watcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */; };
@@ -35,16 +35,16 @@
 		634C06AE26DFC97800861B26 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		634C06B026DFD60E00861B26 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		634C06B326DFDCBD00861B26 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
-		634C06B626DFDDC500861B26 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewCell.swift; sourceTree = "<group>"; };
 		63620CB826E138F700B286AB /* SearchControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerModel.swift; sourceTree = "<group>"; };
 		63620CBA26E1398400B286AB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		63620CBD26E1400800B286AB /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		639A92CD27005CC40047FDC9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		63A0777B26CE5FC4003F4B48 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		63F045C526E4F13D00781103 /* WatchlistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTableViewCell.swift; sourceTree = "<group>"; };
 		63F900BE26CD402400585B7E /* Watcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F900C126CD402400585B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		63F900C526CD402400585B7E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		63F900C526CD402400585B7E /* TrendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingViewController.swift; sourceTree = "<group>"; };
 		63F900CA26CD402500585B7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63F900CD26CD402500585B7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63F900CF26CD402500585B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		634C06B526DFDDA100861B26 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				634C06B626DFDDC500861B26 /* MainCollectionViewCell.swift */,
+				634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */,
 				63620CBA26E1398400B286AB /* SearchTableViewCell.swift */,
 				63F045C526E4F13D00781103 /* WatchlistTableViewCell.swift */,
 			);
@@ -154,12 +154,12 @@
 		63F900D626CD468200585B7E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				63F900C526CD402400585B7E /* MainViewController.swift */,
+				63A0777B26CE5FC4003F4B48 /* CustomTabBarController.swift */,
+				63F900C526CD402400585B7E /* TrendingViewController.swift */,
 				634C06B026DFD60E00861B26 /* SearchTableViewController.swift */,
 				634C06A926DFBAC900861B26 /* DetailViewController.swift */,
 				634C06AB26DFBB2400861B26 /* WatchListTableViewController.swift */,
-				639A92CD27005CC40047FDC9 /* InfoViewController.swift */,
-				63A0777B26CE5FC4003F4B48 /* CustomTabBarController.swift */,
+				639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -289,13 +289,13 @@
 				63036C1F26D55D3800719830 /* NetworkManager.swift in Sources */,
 				634C06AF26DFC97800861B26 /* MainView.swift in Sources */,
 				63F045C626E4F13D00781103 /* WatchlistTableViewCell.swift in Sources */,
-				639A92CE27005CC40047FDC9 /* InfoViewController.swift in Sources */,
-				63F900C626CD402400585B7E /* MainViewController.swift in Sources */,
+				639A92CE27005CC40047FDC9 /* AppInfoViewController.swift in Sources */,
+				63F900C626CD402400585B7E /* TrendingViewController.swift in Sources */,
 				63620CB926E138F700B286AB /* SearchControllerModel.swift in Sources */,
 				634C06AA26DFBAC900861B26 /* DetailViewController.swift in Sources */,
 				634C06AC26DFBB2400861B26 /* WatchListTableViewController.swift in Sources */,
 				63A0777C26CE5FC4003F4B48 /* CustomTabBarController.swift in Sources */,
-				634C06B726DFDDC500861B26 /* MainCollectionViewCell.swift in Sources */,
+				634C06B726DFDDC500861B26 /* TrendingCollectionViewCell.swift in Sources */,
 				63620CBB26E1398400B286AB /* SearchTableViewCell.swift in Sources */,
 				63F900C226CD402400585B7E /* AppDelegate.swift in Sources */,
 				634C06B126DFD60E00861B26 /* SearchTableViewController.swift in Sources */,

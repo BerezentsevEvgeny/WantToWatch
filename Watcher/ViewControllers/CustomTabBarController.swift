@@ -12,15 +12,15 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let barOne = createTabBarController(vc: MainViewController(),
+        let tabOne = createTabBarController(vc: TrendingViewController(),
                                             title: "Trending movies",
                                             image: UIImage(systemName: "film")!)
 
-        let barTwo = createTabBarController(vc: WatchListTableViewController(),
+        let tabTwo = createTabBarController(vc: WatchListTableViewController(),
                                             title: "Watchlist",
                                             image: UIImage(systemName: "list.star")!)
         
-        viewControllers = [barOne, barTwo]
+        viewControllers = [tabOne, tabTwo]
     }
     
     private func createTabBarController(vc: UIViewController, title: String, image: UIImage) -> UINavigationController {

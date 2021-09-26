@@ -18,7 +18,7 @@ class MainView: UIView {
     
     var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: SearchTableViewController())
-        searchController.searchBar.placeholder = "Movie to search"
+        searchController.searchBar.placeholder = "Enter movie name to search"
         searchController.showsSearchResultsController = true
         searchController.definesPresentationContext = true
         return searchController

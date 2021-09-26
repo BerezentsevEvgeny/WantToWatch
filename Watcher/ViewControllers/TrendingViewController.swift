@@ -11,7 +11,7 @@ protocol SearchTableViewControllerDelegate {
     func goToDetailVC(with movie: Movie)
 }
 
-class MainViewController: UIViewController, UICollectionViewDelegate {
+class TrendingViewController: UIViewController, UICollectionViewDelegate {
     
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
     private var trendingMovies = [Movie]()
@@ -24,8 +24,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configInfoButton()
         title = "Trending movies"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         navigationItem.searchController = mainView.searchController
         navigationItem.searchController?.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
@@ -33,10 +35,11 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         createDataSource()
         getTrendingMovies()
         createSnapshot()
+        
     }
     
     private func createDataSource() {
-        let registration = UICollectionView.CellRegistration<MainCollectionViewCell,Movie> { cell, indexPath, movie in
+        let registration = UICollectionView.CellRegistration<TrendingCollectionViewCell,Movie> { cell, indexPath, movie in
             guard let posterImage = movie.posterImage else { return }
             let urlString = "https://image.tmdb.org/t/p/w300" + posterImage
             let url = URL(string: urlString)!
@@ -73,15 +76,26 @@ class MainViewController: UIViewController, UICollectionViewDelegate {
         goToDetailVC(with: selectedMovie)
     }
     
+    private func configInfoButton() {
+        let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfo))
+        navigationItem.rightBarButtonItem = button
+    }
+    
+    @objc func presentInfo() {
+        let infoVC = AppInfoViewController()
+        let navVC = UINavigationController(rootViewController: infoVC)
+        present(navVC, animated: true)
+    }
+    
     
 }
 
-// MARK: - DetailVC
-extension MainViewController: SearchTableViewControllerDelegate {
+// MARK: - Presenting DetailViewController
+extension TrendingViewController: SearchTableViewControllerDelegate {
+    
     func goToDetailVC(with movie: Movie) {
         let detailViewController = DetailViewController()
         detailViewController.selectedMovie = movie
-//        detailViewController.overviewLabel.text = movie.overview
         guard let imageString = movie.posterImage else { return }
         let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
         detailViewController.posterImageView.af.setImage(withURL: url!)
@@ -90,7 +104,7 @@ extension MainViewController: SearchTableViewControllerDelegate {
 }
 
 // MARK: - SearchBar Delegate
-extension MainViewController: UISearchBarDelegate {
+extension TrendingViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(loadSearchedMovies), object: nil)
@@ -111,7 +125,7 @@ extension MainViewController: UISearchBarDelegate {
     }
 }
 
-extension MainViewController {
+extension TrendingViewController {
     private enum Sections {
         case main
     }

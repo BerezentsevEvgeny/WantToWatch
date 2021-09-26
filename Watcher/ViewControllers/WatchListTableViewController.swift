@@ -15,12 +15,14 @@ class WatchListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+
 //        if let savedMovies = StorageManager.shared.fetchWatchlist() {
 //            movies = savedMovies
 //        } else {
 //            movies = StorageManager.shared.watchList
 //        }
-        configButton()
+        configInfoButton()
         title = "Watchlist"
         tableView.rowHeight = 100
         navigationItem.leftBarButtonItem = editButtonItem
@@ -69,13 +71,13 @@ class WatchListTableViewController: UITableViewController {
         createSnapshot()
     }
     
-    func configButton() {
+    private func configInfoButton() {
         let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfo))
         navigationItem.rightBarButtonItem = button
     }
     
     @objc func presentInfo() {
-        let infoVC = InfoViewController()
+        let infoVC = AppInfoViewController()
         let navVC = UINavigationController(rootViewController: infoVC)
         present(navVC, animated: true)
     }
@@ -84,6 +86,7 @@ class WatchListTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         let selectedMovie = StorageManager.shared.watchList[indexPath.row]
         goToDetailVC(with: selectedMovie)
     }

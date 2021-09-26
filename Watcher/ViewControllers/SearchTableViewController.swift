@@ -25,7 +25,6 @@ class SearchTableViewController: UITableViewController {
         SearchControllerModel.shared.searchedMovies.count
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
         let movie = SearchControllerModel.shared.searchedMovies[indexPath.row]

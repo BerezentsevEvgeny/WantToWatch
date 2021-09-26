@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoViewController: UIViewController {
+class AppInfoViewController: UIViewController {
     
     var tmdbLogo = UIImageView()
     var infoLabel = UILabel()

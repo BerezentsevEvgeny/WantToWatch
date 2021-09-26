@@ -7,13 +7,9 @@
 
 import UIKit
 
-class MainCollectionViewCell: UICollectionViewCell {
+class TrendingCollectionViewCell: UICollectionViewCell {
     
-    var posterImage: UIImageView = {
-        let posterImageView = UIImageView()
-        posterImageView.translatesAutoresizingMaskIntoConstraints = false
-        return posterImageView
-    }()
+    var posterImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,14 +21,15 @@ class MainCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupSubviews() {
-        contentView.addSubview(posterImage) //
-        contentView.clipsToBounds = true //
+        contentView.addSubview(posterImage)
+        contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 10  //
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 5
         layer.shadowOpacity = 0.5
         layer.shadowOffset = .zero
-                
+        posterImage.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             posterImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             posterImage.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -40,5 +37,4 @@ class MainCollectionViewCell: UICollectionViewCell {
             posterImage.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
 }
