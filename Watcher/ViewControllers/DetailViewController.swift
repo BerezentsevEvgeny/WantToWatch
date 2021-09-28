@@ -10,7 +10,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var selectedMovie: Movie?
-    
+        
     var posterImageView: UIImageView = {
         let posterImageView = UIImageView()
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,6 @@ class DetailViewController: UIViewController {
         view.addSubview(overviewLabel)
         view.addSubview(addToWatchlistButton)
 
-        
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             posterImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -68,7 +67,5 @@ class DetailViewController: UIViewController {
             addToWatchlistButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
             addToWatchlistButton.widthAnchor.constraint(equalToConstant: 200)
         ])
-                
     }
-    
 }

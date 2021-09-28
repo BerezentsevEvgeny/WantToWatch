@@ -35,7 +35,11 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         createDataSource()
         getTrendingMovies()
         createSnapshot()
-        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
+        goToDetailVC(with: selectedMovie)
     }
     
     private func createDataSource() {
@@ -69,11 +73,6 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
-        goToDetailVC(with: selectedMovie)
     }
     
     private func configInfoButton() {

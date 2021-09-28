@@ -12,9 +12,7 @@ class NetworkManager {
     static let shared = NetworkManager()
     
     let myApiKey = "api_key=7f436759c524bf275d9293a80907af37"
-        
-    private init() {}
-    
+            
     //MARK: - Fetch trending movies
     func getTrendingMoviesData(complition: @escaping (Result<MoviesData,Error>) -> Void) {
         
@@ -62,7 +60,9 @@ class NetworkManager {
             if let error = error {
                 completion(.failure(error))
             } else if let data = data, let image = UIImage(data: data) {
-                completion(.success(image))
+                DispatchQueue.main.async {
+                    completion(.success(image))
+                }
             } else {
                 completion(.failure(error!))
             }
@@ -70,4 +70,5 @@ class NetworkManager {
         task.resume()
     }
     
+    private init() {}
 }
