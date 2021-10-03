@@ -12,6 +12,7 @@ struct MoviesData: Decodable {
         case movies = "results"
     }
     
+    
 }
 
 struct Movie : Codable, Hashable {
