@@ -11,8 +11,6 @@ struct MoviesData: Decodable {
     private enum CodingKeys: String, CodingKey {
         case movies = "results"
     }
-    
-    
 }
 
 struct Movie : Codable, Hashable {

@@ -23,13 +23,14 @@ class DetailViewController: UIViewController {
     var overviewLabel: UILabel = {
         let overviewLabel = UILabel()
         overviewLabel.translatesAutoresizingMaskIntoConstraints = false
-        overviewLabel.textAlignment = .center
-        overviewLabel.font = .boldSystemFont(ofSize: 17)
+        overviewLabel.textAlignment = .left
+        overviewLabel.adjustsFontSizeToFitWidth = true
+        overviewLabel.font = .systemFont(ofSize: 20)
         overviewLabel.numberOfLines = 0
         return overviewLabel
     }()
     
-    var addToWatchlistButton: UIButton = {
+    var watchlistButton: UIButton = {
         let button = UIButton(type: .roundedRect, primaryAction: nil)
         button.backgroundColor = .systemBlue
         button.setTitle("Add to Watchlist", for: .normal)
@@ -41,7 +42,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = selectedMovie?.title
+        title = selectedMovie?.title
         overviewLabel.text = selectedMovie?.overview
         view.backgroundColor = .systemBackground
         setupSubviews()
@@ -50,22 +51,29 @@ class DetailViewController: UIViewController {
     private func setupSubviews() {
         view.addSubview(posterImageView)
         view.addSubview(overviewLabel)
-        view.addSubview(addToWatchlistButton)
+        view.addSubview(watchlistButton)
 
+        let margins = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-            posterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            posterImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            posterImageView.widthAnchor.constraint(equalToConstant: 200),
-            posterImageView.heightAnchor.constraint(equalToConstant: 320),
+            posterImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10),
+            posterImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            posterImageView.widthAnchor.constraint(equalToConstant: 160),
+            posterImageView.heightAnchor.constraint(equalToConstant: 240),
+//            posterImageView.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
+//            posterImageView.widthAnchor.constraint(equalToConstant: view.bounds.width / 2),
             
-            overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 20),
+            overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 10),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            overviewLabel.heightAnchor.constraint(equalToConstant: 200),
+            overviewLabel.heightAnchor.constraint(equalToConstant: view.bounds.height / 3.5),
+//            overviewLabel.bottomAnchor.constraint(equalTo: watchlistButton.topAnchor,constant: -10),
             
-            addToWatchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addToWatchlistButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
-            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 200)
+//            watchlistButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
+            watchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            watchlistButton.widthAnchor.constraint(equalToConstant: 200),
+            watchlistButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -15),
         ])
     }
+    
+    
 }
