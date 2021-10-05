@@ -24,6 +24,7 @@
 		63F900C626CD402400585B7E /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F900C526CD402400585B7E /* TrendingViewController.swift */; };
 		63F900CB26CD402500585B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CA26CD402500585B7E /* Assets.xcassets */; };
 		63F900CE26CD402500585B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CC26CD402500585B7E /* LaunchScreen.storyboard */; };
+		8C749E85270CBDF10098177F /* SafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C749E84270CBDF10098177F /* SafariVC.swift */; };
 		9718A97419397D0123F26A6C /* Pods_Watcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		63F900CA26CD402500585B7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63F900CD26CD402500585B7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63F900CF26CD402500585B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C749E84270CBDF10098177F /* SafariVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariVC.swift; sourceTree = "<group>"; };
 		CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD56BED05684663980AA2EE1 /* Pods-Watcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watcher.debug.xcconfig"; path = "Target Support Files/Pods-Watcher/Pods-Watcher.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +162,7 @@
 				634C06A926DFBAC900861B26 /* DetailViewController.swift */,
 				634C06AB26DFBB2400861B26 /* WatchListTableViewController.swift */,
 				639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */,
+				8C749E84270CBDF10098177F /* SafariVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				63F900C626CD402400585B7E /* TrendingViewController.swift in Sources */,
 				63620CB926E138F700B286AB /* SearchControllerModel.swift in Sources */,
 				634C06AA26DFBAC900861B26 /* DetailViewController.swift in Sources */,
+				8C749E85270CBDF10098177F /* SafariVC.swift in Sources */,
 				634C06AC26DFBB2400861B26 /* WatchListTableViewController.swift in Sources */,
 				63A0777C26CE5FC4003F4B48 /* CustomTabBarController.swift in Sources */,
 				634C06B726DFDDC500861B26 /* TrendingCollectionViewCell.swift in Sources */,

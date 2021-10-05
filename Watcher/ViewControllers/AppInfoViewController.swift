@@ -12,7 +12,8 @@ class AppInfoViewController: UIViewController {
     var tmdbLogo = UIImageView()
     var infoLabel = UILabel()
     var authorLabel = UILabel()
-
+    var gitButton = UIButton()
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -21,6 +22,7 @@ class AppInfoViewController: UIViewController {
         configLogo()
         configInfoLabel()
         configAuthorLabel()
+        configGitButton()
 
     }
     
@@ -76,6 +78,29 @@ class AppInfoViewController: UIViewController {
             authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+    }
+    
+    private func configGitButton() {
+
+        gitButton.translatesAutoresizingMaskIntoConstraints = false
+        gitButton.setTitle("GitHub", for: .normal)
+        gitButton.layer.cornerRadius = 10
+        gitButton.backgroundColor = .systemBlue
+        gitButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
+        view.addSubview(gitButton)
+        NSLayoutConstraint.activate([
+            gitButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -50),
+            gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+            
+        ])
+        
+        
+    }
+    
+    @objc private func showSafariVC() {
+        guard let url = URL(string: "https://github.com/BerezentsevEvgeny") else { return }
+        presentSafariVC(with: url)
     }
     
     

@@ -20,6 +20,14 @@ class DetailViewController: UIViewController {
         return posterImageView
     }()
     
+    let yearLabel: UILabel = {
+        let yearLabel = UILabel()
+        yearLabel.numberOfLines = 0
+        yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return yearLabel
+    }()
+    
     var overviewLabel: UILabel = {
         let overviewLabel = UILabel()
         overviewLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -46,10 +54,20 @@ class DetailViewController: UIViewController {
         overviewLabel.text = selectedMovie?.overview
         view.backgroundColor = .systemBackground
         setupSubviews()
+        
+        yearLabel.text = """
+                         Release date: \n\(selectedMovie?.year ?? "")
+                         
+                         Rating: \(selectedMovie?.rate ?? 0.0 < 7 ? "💙" : "❤️‍🔥")
+                         
+                         Popularity: \(selectedMovie?.popularity ?? 0.0)
+                         """
+        
     }
     
     private func setupSubviews() {
         view.addSubview(posterImageView)
+        view.addSubview(yearLabel) //
         view.addSubview(overviewLabel)
         view.addSubview(watchlistButton)
 
@@ -62,6 +80,9 @@ class DetailViewController: UIViewController {
 //            posterImageView.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
 //            posterImageView.widthAnchor.constraint(equalToConstant: view.bounds.width / 2),
             
+            yearLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 40),
+            yearLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: 40),
+            
             overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 10),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -71,7 +92,7 @@ class DetailViewController: UIViewController {
 //            watchlistButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
             watchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             watchlistButton.widthAnchor.constraint(equalToConstant: 200),
-            watchlistButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -15),
+            watchlistButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -25),
         ])
     }
     
