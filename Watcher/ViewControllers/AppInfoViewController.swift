@@ -16,23 +16,18 @@ class AppInfoViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         title = "About the App"
+        view.backgroundColor = .systemBackground
         configDoneButton()
         configLogo()
         configInfoLabel()
         configAuthorLabel()
         configGitButton()
-
     }
     
     private func configDoneButton() {
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissAction))
         navigationItem.rightBarButtonItem = doneButton
-    }
-    
-    @objc func dismissAction() {
-        dismiss(animated: true)
     }
     
     private func configLogo() {
@@ -41,7 +36,7 @@ class AppInfoViewController: UIViewController {
         tmdbLogo.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+            tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -53,14 +48,12 @@ class AppInfoViewController: UIViewController {
         infoLabel.textColor = .label
         infoLabel.textAlignment = .center
         infoLabel.font = .systemFont(ofSize: 22, weight: .regular)
-        
-    
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 40),
-            infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20 )
+            infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 60),
+            infoLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            infoLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
     }
     
@@ -81,21 +74,22 @@ class AppInfoViewController: UIViewController {
     }
     
     private func configGitButton() {
-
-        gitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(gitButton)
         gitButton.setTitle("GitHub", for: .normal)
         gitButton.layer.cornerRadius = 10
         gitButton.backgroundColor = .systemBlue
+        gitButton.translatesAutoresizingMaskIntoConstraints = false
         gitButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
-        view.addSubview(gitButton)
+        
         NSLayoutConstraint.activate([
             gitButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -50),
             gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
-            
         ])
-        
-        
+    }
+    
+    @objc func dismissAction() {
+        dismiss(animated: true)
     }
     
     @objc private func showSafariVC() {

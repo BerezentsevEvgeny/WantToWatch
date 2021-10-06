@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
         return posterImageView
     }()
     
-    let yearLabel: UILabel = {
+    let infoLabel: UILabel = {
         let yearLabel = UILabel()
         yearLabel.numberOfLines = 0
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +38,8 @@ class DetailViewController: UIViewController {
         return overviewLabel
     }()
     
-    var watchlistButton: UIButton = {
-        let button = UIButton(type: .roundedRect, primaryAction: nil)
+    var addToWatchlistButton: UIButton = {
+        let button = UIButton()
         button.backgroundColor = .systemBlue
         button.setTitle("Add to Watchlist", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -55,7 +55,7 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupSubviews()
         
-        yearLabel.text = """
+        infoLabel.text = """
                          Release date: \n\(selectedMovie?.year ?? "")
                          
                          Rating: \(selectedMovie?.rate ?? 0.0 < 7 ? "💙" : "❤️‍🔥")
@@ -67,9 +67,9 @@ class DetailViewController: UIViewController {
     
     private func setupSubviews() {
         view.addSubview(posterImageView)
-        view.addSubview(yearLabel) //
+        view.addSubview(infoLabel) //
         view.addSubview(overviewLabel)
-        view.addSubview(watchlistButton)
+        view.addSubview(addToWatchlistButton)
 
         let margins = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
@@ -77,22 +77,19 @@ class DetailViewController: UIViewController {
             posterImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             posterImageView.widthAnchor.constraint(equalToConstant: 160),
             posterImageView.heightAnchor.constraint(equalToConstant: 240),
-//            posterImageView.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
-//            posterImageView.widthAnchor.constraint(equalToConstant: view.bounds.width / 2),
             
-            yearLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 40),
-            yearLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: 40),
+            infoLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 40),
+            infoLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: 40),
             
-            overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 10),
-            overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            overviewLabel.heightAnchor.constraint(equalToConstant: view.bounds.height / 3.5),
-//            overviewLabel.bottomAnchor.constraint(equalTo: watchlistButton.topAnchor,constant: -10),
+            overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 20),
+            overviewLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            overviewLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            overviewLabel.bottomAnchor.constraint(lessThanOrEqualTo: addToWatchlistButton.topAnchor, constant: -10),
             
-//            watchlistButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 20),
-            watchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            watchlistButton.widthAnchor.constraint(equalToConstant: 200),
-            watchlistButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -25),
+            addToWatchlistButton.heightAnchor.constraint(equalToConstant: 35),
+            addToWatchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 180),
+            addToWatchlistButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -18)
         ])
     }
     
