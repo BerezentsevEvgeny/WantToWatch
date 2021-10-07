@@ -46,8 +46,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
             guard let posterImage = movie.posterImage else { return }
             let urlString = "https://image.tmdb.org/t/p/w300" + posterImage
             let url = URL(string: urlString)!
-            cell.posterImage.af.setImage(withURL: url, placeholderImage: UIImage(named: "moviePlaceholder"))
-//            cell.titleLabel.text = movie.title
+            cell.posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(named: "moviePlaceholder"))
         }
         
         dataSource = UICollectionViewDiffableDataSource<Sections,Movie>(collectionView: mainView.collectionView){

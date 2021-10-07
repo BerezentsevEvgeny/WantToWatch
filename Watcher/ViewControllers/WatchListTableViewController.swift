@@ -15,7 +15,6 @@ class WatchListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
 
 //        if let savedMovies = StorageManager.shared.fetchWatchlist() {
 //            movies = savedMovies
