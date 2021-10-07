@@ -27,7 +27,6 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         configInfoButton()
         title = "Trending movies"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         navigationItem.searchController = mainView.searchController
         navigationItem.searchController?.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
@@ -48,6 +47,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
             let urlString = "https://image.tmdb.org/t/p/w300" + posterImage
             let url = URL(string: urlString)!
             cell.posterImage.af.setImage(withURL: url, placeholderImage: UIImage(named: "moviePlaceholder"))
+            cell.titleLabel.text = movie.title
         }
         
         dataSource = UICollectionViewDiffableDataSource<Sections,Movie>(collectionView: mainView.collectionView){

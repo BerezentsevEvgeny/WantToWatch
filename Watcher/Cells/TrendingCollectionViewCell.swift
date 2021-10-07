@@ -10,6 +10,7 @@ import UIKit
 class TrendingCollectionViewCell: UICollectionViewCell {
     
     var posterImage = UIImageView()
+    var titleLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +23,11 @@ class TrendingCollectionViewCell: UICollectionViewCell {
     
     private func setupSubviews() {
         contentView.addSubview(posterImage)
+        contentView.addSubview(titleLabel) //
+//        titleLabel.text = "Hello"
+        titleLabel.backgroundColor = .systemBlue //
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 10  //
         layer.shadowColor = UIColor.black.cgColor
@@ -29,12 +35,19 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.5
         layer.shadowOffset = .zero
         posterImage.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false   //
         
         NSLayoutConstraint.activate([
             posterImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             posterImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             posterImage.topAnchor.constraint(equalTo: topAnchor),
-            posterImage.bottomAnchor.constraint(equalTo: bottomAnchor)
+            posterImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            
+            
         ])
     }
 }

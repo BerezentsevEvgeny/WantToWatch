@@ -16,6 +16,7 @@ class AppInfoViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.backgroundColor = .systemGray5
         title = "About the App"
         view.backgroundColor = .systemBackground
         configDoneButton()
@@ -80,9 +81,13 @@ class AppInfoViewController: UIViewController {
         gitButton.backgroundColor = .systemBlue
         gitButton.translatesAutoresizingMaskIntoConstraints = false
         gitButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
+        gitButton.layer.shadowColor = UIColor.black.cgColor
+        gitButton.layer.shadowRadius = 5
+        gitButton.layer.shadowOpacity = 0.5
+        gitButton.layer.shadowOffset = .zero
         
         NSLayoutConstraint.activate([
-            gitButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -50),
+            gitButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -150),
             gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
