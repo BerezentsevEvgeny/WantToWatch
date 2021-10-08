@@ -14,20 +14,20 @@ struct MoviesData: Decodable {
 }
 
 struct Movie : Codable, Hashable {
+    let id: Int?
     let title: String?
     let year: String?
     let rate: Double?
     let posterImage: String?
     let overview: String?
-    let id: Int?
     let popularity: Float?
     
     private enum CodingKeys: String, CodingKey {
+        case id = "id"
         case title, overview
         case year = "release_date"
         case rate = "vote_average"
         case posterImage = "poster_path"
-        case id = "id"
         case popularity = "popularity"
     }
 }

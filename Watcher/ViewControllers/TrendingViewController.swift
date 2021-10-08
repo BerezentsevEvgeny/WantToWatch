@@ -79,13 +79,6 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         navigationItem.rightBarButtonItem = button
     }
     
-    @objc func presentInfo() {
-        let infoVC = AppInfoViewController()
-        let navVC = UINavigationController(rootViewController: infoVC)
-        present(navVC, animated: true)
-    }
-    
-    
 }
 
 // MARK: - Presenting DetailViewController

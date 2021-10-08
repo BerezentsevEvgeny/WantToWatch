@@ -9,15 +9,15 @@ import UIKit
 
 class AppInfoViewController: UIViewController {
     
-    private var tmdbLogo: UIImageView = {
-        var tmdbLogo = UIImageView()
+    private let tmdbLogo: UIImageView = {
+        let tmdbLogo = UIImageView()
         tmdbLogo.image = UIImage(named: "LogoTMDB")
         tmdbLogo.translatesAutoresizingMaskIntoConstraints = false
         return tmdbLogo
     }()
     
-    private var authorLabel: UILabel = {
-        var authorLabel = UILabel()
+    private let authorLabel: UILabel = {
+        let authorLabel = UILabel()
         authorLabel.text = "Author: \n Evgeny Berezentsev"
         authorLabel.numberOfLines = 0
         authorLabel.textAlignment = .center
@@ -26,8 +26,8 @@ class AppInfoViewController: UIViewController {
         return authorLabel
     }()
     
-    private var infoLabel: UILabel = {
-        var infoLabel = UILabel()
+    private let infoLabel: UILabel = {
+        let infoLabel = UILabel()
         infoLabel.text = "This product uses the TMDb API but is not endorsed or certified by TMDb."
         infoLabel.numberOfLines = 0
         infoLabel.textColor = .label
@@ -37,8 +37,8 @@ class AppInfoViewController: UIViewController {
         return infoLabel
     }()
     
-    private var gitButton: UIButton = {
-        var gitButton = UIButton()
+    private let gitButton: UIButton = {
+        let gitButton = UIButton()
         gitButton.setTitle("GitHub", for: .normal)
         gitButton.layer.cornerRadius = 10
         gitButton.backgroundColor = .systemBlue
@@ -53,11 +53,19 @@ class AppInfoViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.backgroundColor = .systemGray5
-        title = "About the App"
-        view.backgroundColor = .systemBackground
+        setupViews()
         configDoneButton()
-        setupSubviews()
+        setConstraints()
+    }
+    
+    private func setupViews() {
+        title = "About the App"
+        navigationController?.navigationBar.backgroundColor = .systemGray5
+        view.backgroundColor = .systemBackground
+        view.addSubview(tmdbLogo)
+        view.addSubview(infoLabel)
+        view.addSubview(authorLabel)
+        view.addSubview(gitButton)
     }
     
     private func configDoneButton() {
@@ -65,24 +73,25 @@ class AppInfoViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
     }
     
-    private func setupSubviews() {
-        view.addSubview(tmdbLogo)
-        view.addSubview(infoLabel)
-        view.addSubview(authorLabel)
-        view.addSubview(gitButton)
-
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 60),
             infoLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             infoLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 40),
             authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             gitButton.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 100),
             gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
@@ -98,8 +107,4 @@ class AppInfoViewController: UIViewController {
         presentSafariVC(with: url)
     }
     
-    
-
-
-
 }

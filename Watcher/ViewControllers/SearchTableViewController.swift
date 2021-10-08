@@ -43,7 +43,7 @@ class SearchTableViewController: UITableViewController {
             let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
             if !StorageManager.shared.watchList.contains(selectedMovie) {
                 StorageManager.shared.watchList.append(selectedMovie)
-                StorageManager.shared.save()
+                StorageManager.shared.saveWatchlist()
             }
             Hides(true)
         }

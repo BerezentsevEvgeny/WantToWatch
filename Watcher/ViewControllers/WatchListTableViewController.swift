@@ -10,103 +10,64 @@ import UIKit
 class WatchListTableViewController: UITableViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
+    private let storage = StorageManager.shared
     
-//    var movies: [Movie] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        if let savedMovies = StorageManager.shared.fetchWatchlist() {
-//            movies = savedMovies
-//        } else {
-//            movies = StorageManager.shared.watchList
-//        }
         configInfoButton()
-        title = "Watchlist"
-        tableView.rowHeight = 100
-        navigationItem.leftBarButtonItem = editButtonItem
-        tableView.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
-//        NotificationCenter.default.addObserver(tableView!, selector: #selector(UITableView.reloadData), name: StorageManager.shared.updateNotification, object: nil)
-        
-        // -
+        setupView()
         createDatasource()
         createSnapshot()
-    }
-
-    // MARK: - Table view data source
-
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        StorageManager.shared.watchList.count
-////        movies.count
-//    }
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
-//        let movie = StorageManager.shared.watchList[indexPath.row]
-////        let movie = movies[indexPath.row]
-//        cell.configureCell(with: movie)
-//        return cell
-//    }
-    
-    // -
-    private func createDatasource() {
-        dataSource = UITableViewDiffableDataSource<Section,Movie>(tableView: tableView) { (tableView, indexPath, movie) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
-            let movie = StorageManager.shared.watchList[indexPath.row]
-            cell.configureCell(with: movie)
-            return cell
-        }
+//        NotificationCenter.default.addObserver(tableView!, selector: #selector(UITableView.reloadData), name: StorageManager.shared.updateNotification, object: nil)
     }
     
-    private func createSnapshot() {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        let selectedMovie = storage.watchList[indexPath.row]
+        goToDetailVC(with: selectedMovie)
+    }
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section,Movie>()
-        snapshot.appendSections([.first])
-        snapshot.appendItems(StorageManager.shared.watchList)
-        dataSource.apply(snapshot,animatingDifferences: true)
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let removeMovie = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, Hides in
+            self?.storage.watchList.remove(at: indexPath.row)
+            self?.createSnapshot()
+            self?.storage.saveWatchlist()
+        }
+        return UISwipeActionsConfiguration(actions: [removeMovie])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         createSnapshot()
     }
     
+    // MARK: - Table view data source
+
+    private func createDatasource() {
+        dataSource = UITableViewDiffableDataSource<Section,Movie>(tableView: tableView) { [weak self] (tableView, indexPath, movie) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
+            let movie = self?.storage.watchList[indexPath.row]
+            cell.configureCell(with: movie)
+            return cell
+        }
+    }
+    
+    private func createSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section,Movie>()
+        snapshot.appendSections([.first])
+        snapshot.appendItems(storage.watchList)
+        dataSource.apply(snapshot,animatingDifferences: true)
+    }
+        
     private func configInfoButton() {
         let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfo))
         navigationItem.rightBarButtonItem = button
     }
     
-    @objc func presentInfo() {
-        let infoVC = AppInfoViewController()
-        let navVC = UINavigationController(rootViewController: infoVC)
-        present(navVC, animated: true)
+    private func setupView() {
+        title = "Watchlist"
+        tableView.rowHeight = 100
+        tableView.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
     }
-
-    
-    
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        let selectedMovie = StorageManager.shared.watchList[indexPath.row]
-        goToDetailVC(with: selectedMovie)
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            StorageManager.shared.watchList.remove(at: indexPath.row)
-            StorageManager.shared.save()
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        true
-    }
-    
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let moved = StorageManager.shared.watchList.remove(at: sourceIndexPath.row)
-        StorageManager.shared.watchList.insert(moved, at: destinationIndexPath.row)
-        StorageManager.shared.save()
-    }
-
     
 
 }
@@ -126,7 +87,6 @@ extension WatchListTableViewController: SearchTableViewControllerDelegate {
 }
 
 
-// -
 extension WatchListTableViewController {
     private enum Section {
         case first
