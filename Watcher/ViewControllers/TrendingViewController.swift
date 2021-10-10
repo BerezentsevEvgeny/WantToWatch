@@ -16,6 +16,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
     private var trendingMovies = [Movie]()
     private let mainView = MainView()
+    private var sorting = SortingBy.title
     
     
     override func loadView() {
@@ -24,7 +25,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configInfoButton()
+        configBarButtons()
         title = "Trending movies"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = mainView.searchController
@@ -34,6 +35,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         createDataSource()
         getTrendingMovies()
         createSnapshot()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -74,10 +76,55 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    private func configInfoButton() {
-        let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfo))
-        navigationItem.rightBarButtonItem = button
+    private func configBarButtons() {
+        let rightButton = UIBarButtonItem(title: "App Info", style: .plain, target: self, action: #selector(presentInfo))
+        navigationItem.rightBarButtonItem = rightButton
+        
+        let leftButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortBy))
+        
+        navigationItem.leftBarButtonItem = leftButton
+        
+
     }
+    
+    @objc private func sortBy() {
+        let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Title", style: .default) { _ in
+            self.trendingMovies = (self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" })
+            self.createSnapshot()
+        }
+        let action2 = UIAlertAction(title: "Rating", style: .default) { _ in
+            self.trendingMovies = self.trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 1}
+            self.createSnapshot()
+        }
+        let action3 = UIAlertAction(title: "Release date", style: .default) { _ in
+            self.trendingMovies = self.trendingMovies.sorted {$0.year ?? "0" < $1.year ?? "1"}
+            self.createSnapshot()
+        }
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.addAction(action3)
+        present(alert, animated: true, completion: nil)
+
+//        switch sorting {
+//        case .title:
+//            self.trendingMovies = trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" }
+//            createSnapshot()
+//            sorting = .rating
+//        case .rating:
+//            self.trendingMovies = trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 1}
+//            createSnapshot()
+//            sorting = .releaseDate
+//        case .releaseDate:
+//            self.trendingMovies = trendingMovies.sorted {$0.year ?? "0" < $1.year ?? "1"}
+//            createSnapshot()
+//            sorting = .title
+//        }
+
+
+    }
+    
+
     
 }
 
@@ -121,4 +168,13 @@ extension TrendingViewController {
         case main
     }
 }
+
+extension TrendingViewController {
+    private enum SortingBy: String {
+        case title = "Title"
+        case rating = "Rating"
+        case releaseDate = "Release date"
+    }
+}
+
 

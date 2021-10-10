@@ -21,12 +21,12 @@ class NetworkManager {
             guard let data = response.data, response.error == nil else { return }
                         
             do {
-                let trendingMovies = try JSONDecoder().decode(MoviesData.self, from: data)
+                let decoder = JSONDecoder()
+                let trendingMovies = try decoder.decode(MoviesData.self, from: data)
                 DispatchQueue.main.async {
                     complition(.success(trendingMovies))
                 }
-            }
-            catch {
+            } catch {
                 complition(.failure(error))
             }
         }
@@ -43,32 +43,32 @@ class NetworkManager {
         AF.request(url).responseData { response in
             guard let data = response.data else { return }
             do {
-                let searchedMovies = try JSONDecoder().decode(MoviesData.self, from: data)
+                let decoder = JSONDecoder()
+                let searchedMovies = try decoder.decode(MoviesData.self, from: data)
                 DispatchQueue.main.async {
                     completition(.success(searchedMovies))
                 }
-            }
-            catch {
+            } catch {
                 completition(.failure(error))
             }
         }
     }
     
-    //MARK: - Fetching searching image
+    //MARK: - Fetch searching image
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data, let image = UIImage(data: data) {
+            if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     completion(.success(image))
                 }
-            } else {
-                completion(.failure(error!))
+            } else if let error = error {
+                completion(.failure(error))
             }
         }
         task.resume()
     }
+    
     
     private init() {}
 }

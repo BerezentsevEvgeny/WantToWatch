@@ -13,10 +13,7 @@ class SearchTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
-        tableView.rowHeight = 130
-        tableView.keyboardDismissMode = .onDrag
-
+        setupTableView()
     }
 
     // MARK: - Table view Data Source
@@ -39,16 +36,27 @@ class SearchTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { _, _, Hides in
+        let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { [weak self] _, _, Hides in
             let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
             if !StorageManager.shared.watchList.contains(selectedMovie) {
                 StorageManager.shared.watchList.append(selectedMovie)
                 StorageManager.shared.saveWatchlist()
+            } else {
+                let alert = UIAlertController(title: "Already in watchlist", message: nil, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(okAction)
+                self?.present(alert, animated: true)
             }
             Hides(true)
         }
         addToWatchlist.backgroundColor = .systemBlue
         return UISwipeActionsConfiguration(actions: [addToWatchlist])
+    }
+    
+    private func setupTableView() {
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
+        tableView.rowHeight = 130
+        tableView.keyboardDismissMode = .onDrag
     }
     
 }

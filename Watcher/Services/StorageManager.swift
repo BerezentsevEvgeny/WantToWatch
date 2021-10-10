@@ -12,7 +12,7 @@ class StorageManager {
     static let shared = StorageManager()
     
     let userDefaults = UserDefaults.standard
-    let updateNotification = Notification.Name("watchlistUpdated")
+//    let updateNotification = Notification.Name("watchlistUpdated")
     
     var watchList = [Movie]() {
         didSet {
