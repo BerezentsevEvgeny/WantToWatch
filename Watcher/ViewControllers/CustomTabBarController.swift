@@ -15,11 +15,11 @@ class CustomTabBarController: UITabBarController {
         let tabOne = createTabBarController(vc: TrendingViewController(),
                                             title: "Trending movies",
                                             image: UIImage(systemName: "film")!)
-
+        
         let tabTwo = createTabBarController(vc: WatchListTableViewController(),
                                             title: "Watchlist",
                                             image: UIImage(systemName: "list.star")!)
-        
+                
         viewControllers = [tabOne, tabTwo]
     }
     

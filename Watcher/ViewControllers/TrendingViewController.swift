@@ -15,8 +15,8 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
     private var trendingMovies = [Movie]()
-    private let mainView = MainView()
     private var sorting = SortingBy.title
+    private let mainView = MainView()
     
     
     override func loadView() {
@@ -81,10 +81,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         navigationItem.rightBarButtonItem = rightButton
         
         let leftButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortBy))
-        
         navigationItem.leftBarButtonItem = leftButton
-        
-
     }
     
     @objc private func sortBy() {
