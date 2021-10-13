@@ -37,7 +37,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         createSnapshot()
 
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
         goToDetailVC(with: selectedMovie)
@@ -172,6 +172,33 @@ extension TrendingViewController {
         case rating = "Rating"
         case releaseDate = "Release date"
     }
+}
+
+extension TrendingViewController {
+    // Context menu
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
+                
+            }
+            let person = UIAction(title: "Person", image: UIImage(systemName: "person"   ), state: .off) { _ in
+                
+            }
+            let remove = UIAction(title: "Remove", image: UIImage(systemName: "minus"   ), attributes: .destructive, state: .off ) { _ in
+                
+            }
+
+            if #available(iOS 15.0, *) {
+                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children: [toWatchlist, person, remove])
+            } else {
+                return nil
+            }
+        }
+        
+        return config
+    }
+    
 }
 
 
