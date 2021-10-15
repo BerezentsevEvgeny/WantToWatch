@@ -15,9 +15,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
     private var trendingMovies = [Movie]()
-    private var sorting = SortingBy.title
     private let mainView = MainView()
-    
     
     override func loadView() {
         view = mainView
@@ -25,24 +23,22 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+        getTrendingMovies()
         configBarButtons()
+        createDataSource()
+        createSnapshot()
+    }
+        
+    private func setupView() {
         title = "Trending movies"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = mainView.searchController
         navigationItem.searchController?.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
         mainView.collectionView.delegate = self
-        createDataSource()
-        getTrendingMovies()
-        createSnapshot()
-
     }
         
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
-        goToDetailVC(with: selectedMovie)
-    }
-    
     private func createDataSource() {
         let registration = UICollectionView.CellRegistration<TrendingCollectionViewCell,Movie> { cell, indexPath, movie in
             guard let posterImage = movie.posterImage else { return }
@@ -80,11 +76,11 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         let rightButton = UIBarButtonItem(title: "App Info", style: .plain, target: self, action: #selector(presentInfo))
         navigationItem.rightBarButtonItem = rightButton
         
-        let leftButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortBy))
+        let leftButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(switchMoviesSorting))
         navigationItem.leftBarButtonItem = leftButton
     }
     
-    @objc private func sortBy() {
+    @objc private func switchMoviesSorting() {
         let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)
         let action1 = UIAlertAction(title: "Title", style: .default) { _ in
             self.trendingMovies = (self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" })
@@ -102,23 +98,11 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         alert.addAction(action2)
         alert.addAction(action3)
         present(alert, animated: true, completion: nil)
-
-//        switch sorting {
-//        case .title:
-//            self.trendingMovies = trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" }
-//            createSnapshot()
-//            sorting = .rating
-//        case .rating:
-//            self.trendingMovies = trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 1}
-//            createSnapshot()
-//            sorting = .releaseDate
-//        case .releaseDate:
-//            self.trendingMovies = trendingMovies.sorted {$0.year ?? "0" < $1.year ?? "1"}
-//            createSnapshot()
-//            sorting = .title
-//        }
-
-
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
+        goToDetailVC(with: selectedMovie)
     }
     
 
@@ -166,13 +150,7 @@ extension TrendingViewController {
     }
 }
 
-extension TrendingViewController {
-    private enum SortingBy: String {
-        case title = "Title"
-        case rating = "Rating"
-        case releaseDate = "Release date"
-    }
-}
+
 
 extension TrendingViewController {
     // Context menu

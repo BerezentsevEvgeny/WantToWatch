@@ -7,16 +7,16 @@
 
 import UIKit
 
+
+
 class SearchTableViewController: UITableViewController {
-        
+            
     var delegate: SearchTableViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
     }
-
-    // MARK: - Table view Data Source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         SearchControllerModel.shared.searchedMovies.count
@@ -35,6 +35,16 @@ class SearchTableViewController: UITableViewController {
         delegate?.goToDetailVC(with: selectedMovie)
     }
     
+    private func setupTableView() {
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
+        tableView.rowHeight = 130
+        tableView.keyboardDismissMode = .onDrag
+    }
+    
+}
+
+extension SearchTableViewController {
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { [weak self] _, _, Hides in
             let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
@@ -52,13 +62,6 @@ class SearchTableViewController: UITableViewController {
         addToWatchlist.backgroundColor = .systemBlue
         return UISwipeActionsConfiguration(actions: [addToWatchlist])
     }
-    
-    private func setupTableView() {
-        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
-        tableView.rowHeight = 130
-        tableView.keyboardDismissMode = .onDrag
-    }
-    
 }
 
 
