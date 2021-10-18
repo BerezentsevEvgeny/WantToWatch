@@ -53,7 +53,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = selectedMovie?.title
-        if StorageManager.shared.watchList.contains(selectedMovie!) {
+        if WatchlistStorage.shared.watchList.contains(selectedMovie!) {
             ///
 
         }
@@ -101,17 +101,19 @@ class DetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             addToWatchlistButton.heightAnchor.constraint(equalToConstant: 35),
-            addToWatchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 180),
+//            addToWatchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 180),
+            addToWatchlistButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            addToWatchlistButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             addToWatchlistButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -18)
         ])
     }
     
     @objc private func addToWatchlist() {
         guard let selectedMovie = selectedMovie else { return }
-        if !StorageManager.shared.watchList.contains(selectedMovie) {
-            StorageManager.shared.watchList.append(selectedMovie)
-            StorageManager.shared.saveWatchlist()
+        if !WatchlistStorage.shared.watchList.contains(selectedMovie) {
+            WatchlistStorage.shared.watchList.append(selectedMovie)
+            WatchlistStorage.shared.saveWatchlist()
             let alert = UIAlertController(title: "\(selectedMovie.title ?? "")", message: "Saved to watchlist", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(okAction)

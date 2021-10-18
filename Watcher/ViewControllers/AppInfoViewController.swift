@@ -40,17 +40,31 @@ class AppInfoViewController: UIViewController {
     private let gitButton: UIButton = {
         let gitButton = UIButton()
         gitButton.setTitle("GitHub", for: .normal)
-        gitButton.layer.cornerRadius = 10
         gitButton.backgroundColor = .systemBlue
-        gitButton.translatesAutoresizingMaskIntoConstraints = false
-        gitButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
-        gitButton.layer.shadowColor = UIColor.black.cgColor
+        gitButton.layer.cornerRadius = 10            //needs custom button
         gitButton.layer.shadowRadius = 5
         gitButton.layer.shadowOpacity = 0.5
         gitButton.layer.shadowOffset = .zero
+        gitButton.layer.shadowColor = UIColor.black.cgColor
+        gitButton.translatesAutoresizingMaskIntoConstraints = false
+        gitButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
         return gitButton
     }()
- 
+    
+    private let mailButton: UIButton = {
+        let mailButton = UIButton()
+        mailButton.setTitle("Email", for: .normal)
+        mailButton.backgroundColor = .systemBlue
+        mailButton.layer.cornerRadius = 10
+        mailButton.layer.shadowRadius = 5
+        mailButton.layer.shadowOpacity = 0.5
+        mailButton.layer.shadowOffset = .zero
+        mailButton.layer.shadowColor = UIColor.black.cgColor
+        mailButton.translatesAutoresizingMaskIntoConstraints = false
+        mailButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
+        return mailButton
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -66,6 +80,7 @@ class AppInfoViewController: UIViewController {
         view.addSubview(infoLabel)
         view.addSubview(authorLabel)
         view.addSubview(gitButton)
+        view.addSubview(mailButton)
     }
     
     private func configDoneButton() {
@@ -75,12 +90,12 @@ class AppInfoViewController: UIViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 60),
+            infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 70),
             infoLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             infoLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
@@ -95,6 +110,12 @@ class AppInfoViewController: UIViewController {
             gitButton.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 100),
             gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
+
+        NSLayoutConstraint.activate([
+            mailButton.topAnchor.constraint(equalTo: gitButton.bottomAnchor, constant: 40),
+            mailButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            mailButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
     }
         

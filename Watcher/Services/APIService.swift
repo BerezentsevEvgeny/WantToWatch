@@ -7,9 +7,9 @@
 
 import Alamofire
 
-class NetworkManager {
+class APIService {
     
-    static let shared = NetworkManager()
+    static let shared = APIService()
     
     let myApiKey = "api_key=7f436759c524bf275d9293a80907af37"
             

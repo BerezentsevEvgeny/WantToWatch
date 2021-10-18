@@ -6,6 +6,7 @@
 //
 
 import AlamofireImage
+import UIKit
 
 protocol SearchTableViewControllerDelegate {
     func goToDetailVC(with movie: Movie)
@@ -61,7 +62,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func getTrendingMovies() {
-        NetworkManager.shared.getTrendingMoviesData { [weak self] result in
+        APIService.shared.getTrendingMoviesData { [weak self] result in
             switch result {
             case .success(let listOf):
                 self?.trendingMovies = listOf.movies
@@ -76,27 +77,29 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         let rightButton = UIBarButtonItem(title: "App Info", style: .plain, target: self, action: #selector(presentInfo))
         navigationItem.rightBarButtonItem = rightButton
         
-        let leftButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(switchMoviesSorting))
+        let leftButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(switchMoviesSorting))
         navigationItem.leftBarButtonItem = leftButton
     }
     
     @objc private func switchMoviesSorting() {
-        let alert = UIAlertController(title: "Sort by:", message: nil, preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "Title", style: .default) { _ in
+        let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "By title", style: .default) { _ in
             self.trendingMovies = (self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" })
             self.createSnapshot()
         }
-        let action2 = UIAlertAction(title: "Rating", style: .default) { _ in
+        let action2 = UIAlertAction(title: "By rating", style: .default) { _ in
             self.trendingMovies = self.trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 1}
             self.createSnapshot()
         }
-        let action3 = UIAlertAction(title: "Release date", style: .default) { _ in
+        let action3 = UIAlertAction(title: "By release date", style: .default) { _ in
             self.trendingMovies = self.trendingMovies.sorted {$0.year ?? "0" < $1.year ?? "1"}
             self.createSnapshot()
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(action1)
         alert.addAction(action2)
         alert.addAction(action3)
+        alert.addAction(cancelAction )
         present(alert, animated: true, completion: nil)
     }
     
@@ -158,7 +161,11 @@ extension TrendingViewController {
         
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
-                
+                let selectedMovie = self.trendingMovies[indexPath.row]
+                if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
+                    WatchlistStorage.shared.watchList.append(selectedMovie)
+                    WatchlistStorage.shared.saveWatchlist()
+                }
             }
             let person = UIAction(title: "Person", image: UIImage(systemName: "person"   ), state: .off) { _ in
                 

@@ -10,7 +10,7 @@ import UIKit
 class WatchListTableViewController: UITableViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
-    private let storage = StorageManager.shared
+    private let storage = WatchlistStorage.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class WatchListTableViewController: UITableViewController {
         createSnapshot()
 //        NotificationCenter.default.addObserver(tableView!, selector: #selector(UITableView.reloadData), name: StorageManager.shared.updateNotification, object: nil)
     }
-    
+        
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let selectedMovie = storage.watchList[indexPath.row]
@@ -37,7 +37,15 @@ class WatchListTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        createSnapshot()
+
+        if storage.watchList.isEmpty {
+            let okAction = UIAlertAction(title: "Ok", style: .cancel)
+            let alert = UIAlertController(title: "Here will be your movies", message: "movies", preferredStyle: .alert)
+            alert.addAction(okAction)
+            present(alert, animated: true )
+        } else {
+            createSnapshot()
+        }
     }
     
     // MARK: - Table view data source

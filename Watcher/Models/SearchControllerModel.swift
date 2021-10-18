@@ -14,7 +14,7 @@ class SearchControllerModel {
     var searchedMovies = [Movie]()
 
     func fetchSearchedMoviesData(movieTosearch: String, completion: @escaping () -> ()) {
-        NetworkManager.shared.getSearchedMoviesData(lookingForMovie: movieTosearch) { [weak self] result in
+        APIService.shared.getSearchedMoviesData(lookingForMovie: movieTosearch) { [weak self] result in
             switch result {
             case .success(let listOf):
                 self?.searchedMovies = listOf.movies

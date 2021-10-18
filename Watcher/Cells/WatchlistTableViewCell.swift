@@ -19,7 +19,7 @@ class WatchlistTableViewCell: UITableViewCell {
         content.secondaryText = movie.year
         content.imageProperties.cornerRadius = 4
         guard let urlString = movie.posterImage, let url = URL(string: "https://image.tmdb.org/t/p/w200" + urlString) else  { return }
-        NetworkManager.shared.fetchImage(from: url) { result in
+        APIService.shared.fetchImage(from: url) { result in
             switch result {
             case .success(let image):
                 DispatchQueue.main.async {

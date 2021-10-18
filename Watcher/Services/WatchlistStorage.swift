@@ -7,9 +7,9 @@
 
 import Foundation
 
-class StorageManager {
+class WatchlistStorage {
     
-    static let shared = StorageManager()
+    static let shared = WatchlistStorage()
     
     let userDefaults = UserDefaults.standard
 //    let updateNotification = Notification.Name("watchlistUpdated")
@@ -33,10 +33,6 @@ class StorageManager {
         guard let data = UserDefaults.standard.object(forKey: "watchlist") as? Data else { return [] }
         guard let savedWatchlist = try? JSONDecoder().decode([Movie].self, from: data) else { return [] }
         return savedWatchlist
-    }
-    
-    func removeMovie() {
-        
     }
     
 }

@@ -48,9 +48,9 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { [weak self] _, _, Hides in
             let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
-            if !StorageManager.shared.watchList.contains(selectedMovie) {
-                StorageManager.shared.watchList.append(selectedMovie)
-                StorageManager.shared.saveWatchlist()
+            if !WatchlistStorage.shared.watchList.contains(selectedMovie) {
+                WatchlistStorage.shared.watchList.append(selectedMovie)
+                WatchlistStorage.shared.saveWatchlist()
             } else {
                 let alert = UIAlertController(title: "Already in watchlist", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
