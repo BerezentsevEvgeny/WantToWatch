@@ -36,7 +36,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = mainView.searchController
         navigationItem.searchController?.searchBar.delegate = self
-        navigationItem.hidesSearchBarWhenScrolling = true
+//        navigationItem.hidesSearchBarWhenScrolling = true
         mainView.collectionView.delegate = self
     }
         
@@ -74,11 +74,17 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func configBarButtons() {
-        let rightButton = UIBarButtonItem(title: "App Info", style: .plain, target: self, action: #selector(presentInfo))
+        let rightButton = UIBarButtonItem(title: "App Info", style: .plain, target: self, action: #selector(presentInfoVC))
         navigationItem.rightBarButtonItem = rightButton
         
         let leftButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(switchMoviesSorting))
         navigationItem.leftBarButtonItem = leftButton
+    }
+    
+    @objc func presentSearch() {
+        navigationItem.searchController = mainView.searchController
+        navigationItem.searchController?.searchBar.delegate = self
+        view.layoutIfNeeded()
     }
     
     @objc private func switchMoviesSorting() {
@@ -138,9 +144,19 @@ extension TrendingViewController: UISearchBarDelegate {
         let searchVC = navigationItem.searchController?.searchResultsController as? SearchTableViewController
         searchVC?.delegate = self
         if movieToSearch != "" {
-            SearchControllerModel.shared.fetchSearchedMoviesData(movieTosearch: movieToSearch ?? "") {
-                DispatchQueue.main.async {
+//            SearchControllerModel.shared.fetchSearchedMoviesData(movieTosearch: movieToSearch ?? "") {
+//                DispatchQueue.main.async {
+//                    searchVC?.tableView.reloadData()
+//                }
+//            }
+            // Test
+            APIService.shared.getSearchedMoviesData(lookingForMovie: movieToSearch ?? "") { result in
+                switch result {
+                case .success(let listOf):
+                    searchVC?.searchedMovies = listOf.movies
                     searchVC?.tableView.reloadData()
+                case .failure(let error):
+                    print("Error processing data \(error)")
                 }
             }
         }
@@ -158,7 +174,7 @@ extension TrendingViewController {
     // Context menu
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         
-        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
                 let selectedMovie = self.trendingMovies[indexPath.row]
                 if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
@@ -180,7 +196,7 @@ extension TrendingViewController {
             }
         }
         
-        return config
+        return configuration
     }
     
 }

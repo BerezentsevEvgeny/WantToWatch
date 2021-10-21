@@ -67,7 +67,7 @@ class WatchListTableViewController: UITableViewController {
     }
         
     private func configInfoButton() {
-        let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfo))
+        let button = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfoVC))
         navigationItem.rightBarButtonItem = button
     }
     

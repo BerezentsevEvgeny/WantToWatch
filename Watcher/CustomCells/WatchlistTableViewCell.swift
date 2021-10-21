@@ -13,7 +13,6 @@ class WatchlistTableViewCell: UITableViewCell {
     
     func configureCell(with movie: Movie?) {
         guard let movie = movie else { return }
-//        accessoryType = .disclosureIndicator
         var content = defaultContentConfiguration()
         content.text = movie.title
         content.secondaryText = movie.year
@@ -31,7 +30,5 @@ class WatchlistTableViewCell: UITableViewCell {
             }
         }
     }
-
-
 
 }

@@ -14,7 +14,6 @@
 		634C06B126DFD60E00861B26 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B026DFD60E00861B26 /* SearchTableViewController.swift */; };
 		634C06B426DFDCBD00861B26 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B326DFDCBD00861B26 /* MovieModel.swift */; };
 		634C06B726DFDDC500861B26 /* TrendingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */; };
-		63620CB926E138F700B286AB /* SearchControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63620CB826E138F700B286AB /* SearchControllerModel.swift */; };
 		63620CBB26E1398400B286AB /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63620CBA26E1398400B286AB /* SearchTableViewCell.swift */; };
 		63620CBE26E1400800B286AB /* WatchlistStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63620CBD26E1400800B286AB /* WatchlistStorage.swift */; };
 		639A92CE27005CC40047FDC9 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */; };
@@ -24,8 +23,7 @@
 		63F900C626CD402400585B7E /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F900C526CD402400585B7E /* TrendingViewController.swift */; };
 		63F900CB26CD402500585B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CA26CD402500585B7E /* Assets.xcassets */; };
 		63F900CE26CD402500585B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CC26CD402500585B7E /* LaunchScreen.storyboard */; };
-		8C749E85270CBDF10098177F /* SafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C749E84270CBDF10098177F /* SafariVC.swift */; };
-		8CAEF68227107C73004E1066 /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEF68127107C73004E1066 /* InfoVC.swift */; };
+		8C749E85270CBDF10098177F /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C749E84270CBDF10098177F /* UIViewController + Extension.swift */; };
 		9718A97419397D0123F26A6C /* Pods_Watcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +36,6 @@
 		634C06B026DFD60E00861B26 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		634C06B326DFDCBD00861B26 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewCell.swift; sourceTree = "<group>"; };
-		63620CB826E138F700B286AB /* SearchControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerModel.swift; sourceTree = "<group>"; };
 		63620CBA26E1398400B286AB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		63620CBD26E1400800B286AB /* WatchlistStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistStorage.swift; sourceTree = "<group>"; };
 		639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
@@ -50,8 +47,7 @@
 		63F900CA26CD402500585B7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63F900CD26CD402500585B7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63F900CF26CD402500585B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8C749E84270CBDF10098177F /* SafariVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariVC.swift; sourceTree = "<group>"; };
-		8CAEF68127107C73004E1066 /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
+		8C749E84270CBDF10098177F /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD56BED05684663980AA2EE1 /* Pods-Watcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watcher.debug.xcconfig"; path = "Target Support Files/Pods-Watcher/Pods-Watcher.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,19 +85,18 @@
 			isa = PBXGroup;
 			children = (
 				634C06B326DFDCBD00861B26 /* MovieModel.swift */,
-				63620CB826E138F700B286AB /* SearchControllerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		634C06B526DFDDA100861B26 /* Cells */ = {
+		634C06B526DFDDA100861B26 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
 				634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */,
 				63620CBA26E1398400B286AB /* SearchTableViewCell.swift */,
 				63F045C526E4F13D00781103 /* WatchlistTableViewCell.swift */,
 			);
-			path = Cells;
+			path = CustomCells;
 			sourceTree = "<group>";
 		};
 		63A0777A26CE571B003F4B48 /* Services */ = {
@@ -134,7 +129,7 @@
 		63F900C026CD402400585B7E /* Watcher */ = {
 			isa = PBXGroup;
 			children = (
-				634C06B526DFDDA100861B26 /* Cells */,
+				634C06B526DFDDA100861B26 /* CustomCells */,
 				634C06B226DFD89300861B26 /* Models */,
 				634C06AD26DFC91A00861B26 /* Views */,
 				63F900D626CD468200585B7E /* ViewControllers */,
@@ -164,8 +159,7 @@
 				634C06A926DFBAC900861B26 /* DetailViewController.swift */,
 				634C06AB26DFBB2400861B26 /* WatchListTableViewController.swift */,
 				639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */,
-				8C749E84270CBDF10098177F /* SafariVC.swift */,
-				8CAEF68127107C73004E1066 /* InfoVC.swift */,
+				8C749E84270CBDF10098177F /* UIViewController + Extension.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -297,10 +291,8 @@
 				63F045C626E4F13D00781103 /* WatchlistTableViewCell.swift in Sources */,
 				639A92CE27005CC40047FDC9 /* AppInfoViewController.swift in Sources */,
 				63F900C626CD402400585B7E /* TrendingViewController.swift in Sources */,
-				63620CB926E138F700B286AB /* SearchControllerModel.swift in Sources */,
 				634C06AA26DFBAC900861B26 /* DetailViewController.swift in Sources */,
-				8CAEF68227107C73004E1066 /* InfoVC.swift in Sources */,
-				8C749E85270CBDF10098177F /* SafariVC.swift in Sources */,
+				8C749E85270CBDF10098177F /* UIViewController + Extension.swift in Sources */,
 				634C06AC26DFBB2400861B26 /* WatchListTableViewController.swift in Sources */,
 				63A0777C26CE5FC4003F4B48 /* CustomTabBarController.swift in Sources */,
 				634C06B726DFDDC500861B26 /* TrendingCollectionViewCell.swift in Sources */,
@@ -449,6 +441,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F824GPAVR5;
 				INFOPLIST_FILE = Watcher/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -472,6 +465,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F824GPAVR5;
 				INFOPLIST_FILE = Watcher/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
