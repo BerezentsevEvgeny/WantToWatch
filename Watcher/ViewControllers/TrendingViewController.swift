@@ -125,7 +125,7 @@ extension TrendingViewController: SearchTableViewControllerDelegate {
         let detailViewController = DetailViewController()
         detailViewController.selectedMovie = movie
         guard let imageString = movie.posterImage else { return }
-        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
+        let url = URL(string: "https://image.tmdb.org/t/p/w300" + imageString)  // quality
         detailViewController.posterImageView.af.setImage(withURL: url!)
         navigationController?.pushViewController(detailViewController, animated: true)
     }

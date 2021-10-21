@@ -38,12 +38,12 @@ class DetailViewController: UIViewController {
         return overviewLabel
     }()
     
-    var addToWatchlistButton: UIButton = {
+    lazy var addToWatchlistButton: UIButton = {  ///?? lazy   var
         let button = UIButton()
         button.isEnabled = true
-        button.setTitle("Add to watchlist", for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie!) ? "Add to watchlist" : "Remove" , for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addToWatchlist), for: .touchUpInside)
@@ -52,11 +52,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = selectedMovie?.title
-        if WatchlistStorage.shared.watchList.contains(selectedMovie!) {
-            ///
-
-        }
+//        title = selectedMovie?.title
         overviewLabel.text = selectedMovie?.overview
         view.backgroundColor = .systemBackground
         setupSubviews()
@@ -70,7 +66,6 @@ class DetailViewController: UIViewController {
                          """
         
     }
-//    Rating: \(selectedMovie?.rate ?? 0.0 < 7 ? "💙" : "❤️‍🔥")
     
     private func setupSubviews() {
         view.addSubview(posterImageView)
@@ -101,8 +96,6 @@ class DetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             addToWatchlistButton.heightAnchor.constraint(equalToConstant: 35),
-//            addToWatchlistButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 180),
             addToWatchlistButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             addToWatchlistButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             addToWatchlistButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -18)
@@ -111,18 +104,22 @@ class DetailViewController: UIViewController {
     
     @objc private func addToWatchlist() {
         guard let selectedMovie = selectedMovie else { return }
+        
         if !WatchlistStorage.shared.watchList.contains(selectedMovie) {
-            WatchlistStorage.shared.watchList.append(selectedMovie)
-            WatchlistStorage.shared.saveWatchlist()
-            let alert = UIAlertController(title: "\(selectedMovie.title ?? "")", message: "Saved to watchlist", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true)
+            presentAlert(message: "Do you want to add ?", actionTitle: "Add") { _ in
+                WatchlistStorage.shared.watchList.append(selectedMovie)
+                WatchlistStorage.shared.saveWatchlist()
+                self.addToWatchlistButton.setTitle("Remove", for: .normal)
+                self.navigationController?.popViewController(animated: true)                
+            }
         } else {
-            let alert = UIAlertController(title: "Already in watchlist", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true)
+            presentAlert(message: "Do you want to remove ?", actionTitle: "Remove") { _ in
+                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: selectedMovie) else { return }
+                WatchlistStorage.shared.watchList.remove(at: indexPath)
+                WatchlistStorage.shared.saveWatchlist()
+                self.addToWatchlistButton.setTitle("Add to watchlist", for: .normal)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     

@@ -14,6 +14,7 @@ class WatchListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkForItems()
         configInfoButton()
         setupView()
         createDatasource()
@@ -37,15 +38,16 @@ class WatchListTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        createSnapshot()
+    }
 
+    func checkForItems() {
         if storage.watchList.isEmpty {
             let okAction = UIAlertAction(title: "Ok", style: .cancel)
-            let alert = UIAlertController(title: "Here will be your movies", message: "movies", preferredStyle: .alert)
+            let alert = UIAlertController(title: "", message: "Saved movies will be visible here", preferredStyle: .alert)
             alert.addAction(okAction)
             present(alert, animated: true )
-        } else {
-            createSnapshot()
-        }
+        } 
     }
     
     // MARK: - Table view data source
