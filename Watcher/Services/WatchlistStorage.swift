@@ -11,12 +11,14 @@ class WatchlistStorage {
     
     static let shared = WatchlistStorage()
     
+    let updateNotification = Notification.Name("watchlistUpdated")
+    
     let userDefaults = UserDefaults.standard
 //    let updateNotification = Notification.Name("watchlistUpdated")
     
     var watchList = [Movie]() {
         didSet {
-//            NotificationCenter.default.post(name: StorageManager.shared.updateNotification, object: nil) // Post Notification
+            NotificationCenter.default.post(name: WatchlistStorage.shared.updateNotification, object: nil) // Post Notification
         }
     }
     

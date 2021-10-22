@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         let customTabBarController = CustomTabBarController()
         window.rootViewController = customTabBarController
+//        window.tintColor
         window.makeKeyAndVisible()
         self.window = window
         

@@ -19,7 +19,7 @@ class WatchListTableViewController: UITableViewController {
         setupView()
         createDatasource()
         createSnapshot()
-//        NotificationCenter.default.addObserver(tableView!, selector: #selector(UITableView.reloadData), name: StorageManager.shared.updateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: WatchlistStorage.shared.updateNotification, object: nil)
     }
         
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -28,7 +28,7 @@ class WatchListTableViewController: UITableViewController {
         goToDetailVC(with: selectedMovie)
     }
         
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let removeMovie = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, Hides in
             self?.storage.watchList.remove(at: indexPath.row)
             self?.createSnapshot()
@@ -37,7 +37,7 @@ class WatchListTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [removeMovie])
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc func reload() {
         createSnapshot()
     }
 

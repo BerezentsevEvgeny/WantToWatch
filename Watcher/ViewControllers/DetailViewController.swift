@@ -52,7 +52,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        title = selectedMovie?.title
+        title = selectedMovie?.title
         overviewLabel.text = selectedMovie?.overview
         view.backgroundColor = .systemBackground
         setupSubviews()
@@ -64,7 +64,7 @@ class DetailViewController: UIViewController {
                          
                          Popularity: \(selectedMovie?.popularity ?? 0.0)
                          """
-        
+        navigationItem.setRightBarButton(UIBarButtonItem(title: "Share", image: nil, primaryAction: nil, menu: nil), animated: false)
     }
     
     private func setupSubviews() {
