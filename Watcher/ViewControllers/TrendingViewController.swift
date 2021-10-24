@@ -125,7 +125,7 @@ extension TrendingViewController: SearchTableViewControllerDelegate {
         let detailViewController = DetailViewController()
         detailViewController.selectedMovie = movie
         guard let imageString = movie.posterImage else { return }
-        let url = URL(string: "https://image.tmdb.org/t/p/w300" + imageString)  // quality
+        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)  // quality
         detailViewController.posterImageView.af.setImage(withURL: url!)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
@@ -153,8 +153,10 @@ extension TrendingViewController: UISearchBarDelegate {
             APIService.shared.getSearchedMoviesData(lookingForMovie: movieToSearch ?? "") { result in
                 switch result {
                 case .success(let listOf):
-                    searchVC?.searchedMovies = listOf.movies
-                    searchVC?.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        searchVC?.searchedMovies = listOf.movies
+                        searchVC?.tableView.reloadData()
+                    }
                 case .failure(let error):
                     print("Error processing data \(error)")
                 }
@@ -173,24 +175,24 @@ extension TrendingViewController {
 extension TrendingViewController {
     // Context menu
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let selectedMovie = trendingMovies[indexPath.row]
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
-                let selectedMovie = self.trendingMovies[indexPath.row]
+//                let selectedMovie = self.trendingMovies[indexPath.row]
                 if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
                     WatchlistStorage.shared.watchList.append(selectedMovie)
                     WatchlistStorage.shared.saveWatchlist()
                 }
             }
-            let person = UIAction(title: "Person", image: UIImage(systemName: "person"   ), state: .off) { _ in
-                
-            }
             let remove = UIAction(title: "Remove", image: UIImage(systemName: "minus"   ), attributes: .destructive, state: .off ) { _ in
-                
+                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: selectedMovie) else { return }
+                WatchlistStorage.shared.watchList.remove(at: indexPath)
+                WatchlistStorage.shared.saveWatchlist()
             }
 
             if #available(iOS 15.0, *) {
-                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children: [toWatchlist, person, remove])
+                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children: [toWatchlist,remove])
             } else {
                 return nil
             }

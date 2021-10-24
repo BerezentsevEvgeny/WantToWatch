@@ -18,13 +18,11 @@ class SearchTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        SearchControllerModel.shared.searchedMovies.count
         searchedMovies.count //
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
-//        let movie = SearchControllerModel.shared.searchedMovies[indexPath.row]
         let movie = searchedMovies[indexPath.row] //
         cell.configureCell(with: movie)
         return cell
@@ -32,7 +30,6 @@ class SearchTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let selectedMovie = SearchControllerModel.shared.searchedMovies[indexPath.row]
         let selectedMovie = searchedMovies[indexPath.row] //
         delegate?.goToDetailVC(with: selectedMovie)
     }
@@ -46,7 +43,7 @@ class SearchTableViewController: UITableViewController {
 
 extension SearchTableViewController {
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { [weak self] _, _, Hides in
             let selectedMovie = self?.searchedMovies[indexPath.row]
             if !WatchlistStorage.shared.watchList.contains(selectedMovie!) {
