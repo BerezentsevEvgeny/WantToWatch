@@ -46,7 +46,7 @@ class DetailViewController: UIViewController {
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(addToWatchlist), for: .touchUpInside)
+        button.addTarget(self, action: #selector(watchTrailer), for: .touchUpInside)
         return button
     }()
 
@@ -121,6 +121,30 @@ class DetailViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    @objc private func watchTrailer() {
+        print("tapped")
+        //        guard let query = selectedMovie?.title?.replacingOccurrences(of: " ", with: "+") else { return }
+        //        let url = URL(string: "https://www.youtube.com/results?search_query=\(query)")
+        //        guard let defaultUrl = URL(string: "https://www.youtube.com") else { return }
+        //        presentSafariVC(with: url ?? defaultUrl)
+        guard let query = selectedMovie?.title?.replacingOccurrences(of: " ", with: "+") else { return }
+//        let url = URL(string: "https://www.youtube.com/results?search_query=\(query)")
+        let YoutubeQuery =  "https://www.youtube.com/results?search_query=\(query)"
+        let escapedYoutubeQuery = YoutubeQuery.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        let appURL = NSURL(string: "youtube://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        let webURL = NSURL(string: "https://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        let application = UIApplication.shared
+        
+        if application.canOpenURL(appURL as URL) {
+            application.open(appURL as URL)
+        } else {
+            // if Youtube app is not installed, open URL inside Safari
+            application.open(webURL as URL)
+        }
+        
+        
     }
     
     

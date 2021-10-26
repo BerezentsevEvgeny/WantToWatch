@@ -9,6 +9,10 @@ import UIKit
 
 class AppInfoViewController: UIViewController {
     
+    private var gitButton = UIButton()
+    private var appSiteButton = UIButton()
+    private var mailButton = UIButton()
+    
     private let tmdbLogo: UIImageView = {
         let tmdbLogo = UIImageView()
         tmdbLogo.image = UIImage(named: "LogoTMDB")
@@ -36,43 +40,15 @@ class AppInfoViewController: UIViewController {
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         return infoLabel
     }()
-    
-    private let gitButton: UIButton = {
-        let gitButton = UIButton()
-        gitButton.setTitle("GitHub", for: .normal)
-        gitButton.backgroundColor = .systemBlue
-        gitButton.layer.cornerRadius = 10            //needs custom button
-        gitButton.layer.shadowRadius = 5
-        gitButton.layer.shadowOpacity = 0.5
-        gitButton.layer.shadowOffset = .zero
-        gitButton.layer.shadowColor = UIColor.black.cgColor
-        gitButton.translatesAutoresizingMaskIntoConstraints = false
-        gitButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
-        return gitButton
-    }()
-    
-    private let mailButton: UIButton = {
-        let mailButton = UIButton()
-        mailButton.setTitle("Email", for: .normal)
-        mailButton.backgroundColor = .systemBlue
-        mailButton.layer.cornerRadius = 10
-        mailButton.layer.shadowRadius = 5
-        mailButton.layer.shadowOpacity = 0.5
-        mailButton.layer.shadowOffset = .zero
-        mailButton.layer.shadowColor = UIColor.black.cgColor
-        mailButton.translatesAutoresizingMaskIntoConstraints = false
-        mailButton.addTarget(self, action: #selector(showSafariVC), for: .touchUpInside)
-        return mailButton
-    }()
-    
+            
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        configDoneButton()
+        configureButtons()
+        setViews()
         setConstraints()
     }
     
-    private func setupViews() {
+    private func setViews() {
         title = "About the App"
         navigationController?.navigationBar.backgroundColor = .systemGray5
         view.backgroundColor = .systemBackground
@@ -80,42 +56,41 @@ class AppInfoViewController: UIViewController {
         view.addSubview(infoLabel)
         view.addSubview(authorLabel)
         view.addSubview(gitButton)
-        view.addSubview(mailButton)
+        view.addSubview(appSiteButton)
     }
     
-    private func configDoneButton() {
+    private func configureButtons() {
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissAction))
         navigationItem.rightBarButtonItem = doneButton
+        setupButton(gitButton, title: "GitHub", action: #selector(showMyGitHub))
+        setupButton(appSiteButton, title: "App Website", action: #selector(showAppSite))
+//        setupButton(mailButton, title: "Mail", action: )
     }
-    
+        
     private func setConstraints() {
         NSLayoutConstraint.activate([
             tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
+            tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor) ])
         
         NSLayoutConstraint.activate([
             infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 70),
             infoLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            infoLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-        ])
+            infoLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor) ])
         
         NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 40),
             authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
+            authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20) ])
         
         NSLayoutConstraint.activate([
             gitButton.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 100),
             gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
-        ])
-
+            gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50) ])
+        
         NSLayoutConstraint.activate([
-            mailButton.topAnchor.constraint(equalTo: gitButton.bottomAnchor, constant: 40),
-            mailButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            mailButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+            appSiteButton.topAnchor.constraint(equalTo: gitButton.bottomAnchor, constant: 40),
+            appSiteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            appSiteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
     }
         
@@ -123,9 +98,29 @@ class AppInfoViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc private func showSafariVC() {
+    @objc private func showMyGitHub() {
         guard let url = URL(string: "https://github.com/BerezentsevEvgeny") else { return }
         presentSafariVC(with: url)
     }
     
+    @objc private func showAppSite() {
+        guard let url = URL(string: "https://berezentsevdevelop.wixsite.com/wanttowatch") else { return }
+        presentSafariVC(with: url)
+    }
+        
+}
+
+
+extension AppInfoViewController {
+    func setupButton(_ button: UIButton,title: String, action: Selector) {
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 10
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = .zero
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: action, for: .touchUpInside)
+    }
 }
