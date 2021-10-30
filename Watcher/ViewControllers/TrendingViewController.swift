@@ -30,7 +30,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         createDataSource()
         createSnapshot()
     }
-        
+    
     private func setupView() {
         title = "Trending movies"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -74,7 +74,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func configBarButtons() {
-        let rightButton = UIBarButtonItem(title: "App Info", style: .plain, target: self, action: #selector(presentInfoVC))
+        let rightButton = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfoVC))
         navigationItem.rightBarButtonItem = rightButton
         
         let leftButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(switchMoviesSorting))

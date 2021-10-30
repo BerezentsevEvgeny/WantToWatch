@@ -76,6 +76,7 @@ class WatchListTableViewController: UITableViewController {
     private func setupView() {
         title = "Watchlist"
         tableView.rowHeight = 100
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
     }
     

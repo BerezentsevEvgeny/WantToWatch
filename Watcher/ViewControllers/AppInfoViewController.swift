@@ -12,6 +12,7 @@ class AppInfoViewController: UIViewController {
     private var gitButton = UIButton()
     private var appSiteButton = UIButton()
     private var mailButton = UIButton()
+    private var vstack = UIStackView()
     
     private let tmdbLogo: UIImageView = {
         let tmdbLogo = UIImageView()
@@ -20,27 +21,27 @@ class AppInfoViewController: UIViewController {
         return tmdbLogo
     }()
     
-    private let authorLabel: UILabel = {
-        let authorLabel = UILabel()
-        authorLabel.text = "Author: \n Evgeny Berezentsev"
-        authorLabel.numberOfLines = 0
-        authorLabel.textAlignment = .center
-        authorLabel.font = .systemFont(ofSize: 20, weight: .regular)
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        return authorLabel
-    }()
-    
     private let infoLabel: UILabel = {
         let infoLabel = UILabel()
         infoLabel.text = "This product uses the TMDb API but is not endorsed or certified by TMDb."
         infoLabel.numberOfLines = 0
         infoLabel.textColor = .label
         infoLabel.textAlignment = .center
-        infoLabel.font = .systemFont(ofSize: 22, weight: .regular)
+        infoLabel.font = .systemFont(ofSize: 22)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         return infoLabel
     }()
-            
+    
+    private let authorLabel: UILabel = {
+        let authorLabel = UILabel()
+        authorLabel.text = "Developer: \n Evgeny Berezentsev"
+        authorLabel.numberOfLines = 0
+        authorLabel.textAlignment = .center
+        authorLabel.font = .systemFont(ofSize: 20)
+        authorLabel.translatesAutoresizingMaskIntoConstraints = false
+        return authorLabel
+    }()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         configureButtons()
@@ -49,7 +50,7 @@ class AppInfoViewController: UIViewController {
     }
     
     private func setViews() {
-        title = "About the App"
+        title = "App information"
         navigationController?.navigationBar.backgroundColor = .systemGray5
         view.backgroundColor = .systemBackground
         view.addSubview(tmdbLogo)
@@ -57,6 +58,15 @@ class AppInfoViewController: UIViewController {
         view.addSubview(authorLabel)
         view.addSubview(gitButton)
         view.addSubview(appSiteButton)
+        
+        vstack = UIStackView(arrangedSubviews: [infoLabel,authorLabel,gitButton,appSiteButton])
+        vstack.axis = .vertical
+        vstack.distribution = .equalSpacing
+        vstack.alignment = .fill
+        vstack.spacing = 20
+        vstack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(vstack)
+        
     }
     
     private func configureButtons() {
@@ -64,33 +74,23 @@ class AppInfoViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
         setupButton(gitButton, title: "GitHub", action: #selector(showMyGitHub))
         setupButton(appSiteButton, title: "App Website", action: #selector(showAppSite))
-//        setupButton(mailButton, title: "Mail", action: )
     }
         
     private func setConstraints() {
-        NSLayoutConstraint.activate([
-            tmdbLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor) ])
+        let margins = view.layoutMarginsGuide
         
         NSLayoutConstraint.activate([
-            infoLabel.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 70),
-            infoLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            infoLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor) ])
-        
+            tmdbLogo.topAnchor.constraint(equalTo: margins.topAnchor, constant: 50),
+            tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+
         NSLayoutConstraint.activate([
-            authorLabel.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 40),
-            authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20) ])
-        
-        NSLayoutConstraint.activate([
-            gitButton.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 100),
-            gitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            gitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50) ])
-        
-        NSLayoutConstraint.activate([
-            appSiteButton.topAnchor.constraint(equalTo: gitButton.bottomAnchor, constant: 40),
-            appSiteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            appSiteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+//            vstack.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -10),
+            vstack.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 50),
+            vstack.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -50),
+            vstack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20),
+            vstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
+//            vstack.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
         
@@ -107,9 +107,7 @@ class AppInfoViewController: UIViewController {
         guard let url = URL(string: "https://berezentsevdevelop.wixsite.com/wanttowatch") else { return }
         presentSafariVC(with: url)
     }
-        
 }
-
 
 extension AppInfoViewController {
     func setupButton(_ button: UIButton,title: String, action: Selector) {
