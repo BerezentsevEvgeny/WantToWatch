@@ -38,10 +38,14 @@ class APIService {
         let apiURL1 = "https://api.themoviedb.org/3/search/movie?"
         let apiURL2 = "&language=en-US&page=1&include_adult=false"
         let searchedMoviesURL = apiURL1 + myApiKey + apiURL2 + "&query=\(lookingForMovie)"
-        
         guard let url = URL(string: searchedMoviesURL) else { return }
+        
         AF.request(url).responseData { response in
-            guard let data = response.data else { return }
+            guard let data = response.data else {
+                print(response.error?.localizedDescription ?? "No description")
+                return
+            }
+            
             do {
                 let decoder = JSONDecoder()
                 let searchedMovies = try decoder.decode(MoviesData.self, from: data)

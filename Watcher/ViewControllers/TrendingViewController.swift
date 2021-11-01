@@ -36,7 +36,6 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = mainView.searchController
         navigationItem.searchController?.searchBar.delegate = self
-//        navigationItem.hidesSearchBarWhenScrolling = true
         mainView.collectionView.delegate = self
     }
         
@@ -81,11 +80,11 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         navigationItem.leftBarButtonItem = leftButton
     }
     
-    @objc func presentSearch() {
-        navigationItem.searchController = mainView.searchController
-        navigationItem.searchController?.searchBar.delegate = self
-        view.layoutIfNeeded()
-    }
+//    @objc func presentSearch() {
+//        navigationItem.searchController = mainView.searchController
+//        navigationItem.searchController?.searchBar.delegate = self
+//        view.layoutIfNeeded()
+//    }
     
     @objc private func switchMoviesSorting() {
         let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
@@ -144,12 +143,7 @@ extension TrendingViewController: UISearchBarDelegate {
         let searchVC = navigationItem.searchController?.searchResultsController as? SearchTableViewController
         searchVC?.delegate = self
         if movieToSearch != "" {
-//            SearchControllerModel.shared.fetchSearchedMoviesData(movieTosearch: movieToSearch ?? "") {
-//                DispatchQueue.main.async {
-//                    searchVC?.tableView.reloadData()
-//                }
-//            }
-            // Test
+
             APIService.shared.getSearchedMoviesData(lookingForMovie: movieToSearch ?? "") { result in
                 switch result {
                 case .success(let listOf):
@@ -158,7 +152,7 @@ extension TrendingViewController: UISearchBarDelegate {
                         searchVC?.tableView.reloadData()
                     }
                 case .failure(let error):
-                    print("Error processing data \(error)")
+                    print(error.localizedDescription)
                 }
             }
         }
@@ -179,7 +173,6 @@ extension TrendingViewController {
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
-//                let selectedMovie = self.trendingMovies[indexPath.row]
                 if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
                     WatchlistStorage.shared.watchList.append(selectedMovie)
                     WatchlistStorage.shared.saveWatchlist()
@@ -192,7 +185,9 @@ extension TrendingViewController {
             }
 
             if #available(iOS 15.0, *) {
-                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children: [toWatchlist,remove])
+                
+                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children:
+                                WatchlistStorage.shared.watchList.contains(selectedMovie) ? [remove] : [toWatchlist])
             } else {
                 return nil
             }
