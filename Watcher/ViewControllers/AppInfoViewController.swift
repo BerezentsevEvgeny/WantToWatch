@@ -85,12 +85,10 @@ class AppInfoViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-//            vstack.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -10),
             vstack.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 50),
             vstack.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -50),
             vstack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20),
             vstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
-//            vstack.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
         

@@ -19,18 +19,10 @@ class DetailViewController: UIViewController {
         posterImageView.layer.cornerRadius = 10
         return posterImageView
     }()
-    
-    lazy var infoLabel: UILabel = {
-        let yearLabel = UILabel()
-        yearLabel.layer.cornerRadius = 10
-        yearLabel.backgroundColor = .systemGreen
-        yearLabel.text = "\(selectedMovie?.rate ?? 0.0)"
-        yearLabel.layer.masksToBounds = true
-        yearLabel.textColor = .white
-        yearLabel.textAlignment = .center
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
-        return yearLabel
-    }()
+        
+    let releaseYearLabel = UILabel()
+    let ratingLabel = UILabel()
+    let popularityLabel = UILabel()
     
     private let overviewLabel: UILabel = {
         let overviewLabel = UILabel()
@@ -46,9 +38,8 @@ class DetailViewController: UIViewController {
         let button = UIButton()
         button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie!) ? "Add to list" : "Remove" , for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemGreen
+        button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addToWatchlist), for: .touchUpInside)
         return button
     }()
@@ -59,16 +50,17 @@ class DetailViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(watchTrailer), for: .touchUpInside)
         return button
     }()
     
     private var hstack = UIStackView()
+    private var vstack = UIStackView()
         
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
+        setLabels()
         setConstraints()
     }
     
@@ -77,7 +69,6 @@ class DetailViewController: UIViewController {
         overviewLabel.text = selectedMovie?.overview
         view.backgroundColor = .systemBackground
         view.addSubview(posterImageView)
-        view.addSubview(infoLabel) //
         view.addSubview(overviewLabel)
         view.addSubview(addAndRemoveButton)
         view.addSubview(watchTrailerButton)
@@ -89,6 +80,29 @@ class DetailViewController: UIViewController {
         hstack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hstack)
         
+        vstack = UIStackView(arrangedSubviews: [releaseYearLabel,popularityLabel,ratingLabel])
+        vstack.axis = .vertical
+        vstack.distribution = .fillEqually
+        vstack.alignment = .fill
+        vstack.spacing = 50
+        vstack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(vstack)
+        
+    }
+    
+    private func setLabels() {
+        let labels = [releaseYearLabel,popularityLabel,ratingLabel]
+        labels.forEach {
+            $0.backgroundColor = .systemGreen
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 10
+            $0.textColor = .white
+            $0.textAlignment = .center
+            
+        }
+        releaseYearLabel.text = "Year: \(selectedMovie?.year?.replacingOccurrences(of: "-", with: ".") ?? "Not available")"
+        popularityLabel.text = "Popularity: \(lroundf(selectedMovie?.popularity ?? 0))"
+        ratingLabel.text = "Rating: \(round(selectedMovie?.rate ?? 0.0))"
     }
      
     
@@ -99,42 +113,24 @@ class DetailViewController: UIViewController {
             posterImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10),
             posterImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             posterImageView.widthAnchor.constraint(equalToConstant: 160),
-            posterImageView.heightAnchor.constraint(equalToConstant: 240),
-        ])
-        
-        NSLayoutConstraint.activate([
-            infoLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 40),
-            infoLabel.topAnchor.constraint(equalTo: margins.topAnchor, constant: 40),
-            infoLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
-            infoLabel.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        
+            posterImageView.heightAnchor.constraint(equalToConstant: 240) ])
+
         NSLayoutConstraint.activate([
             overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 20),
             overviewLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             overviewLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            overviewLabel.bottomAnchor.constraint(lessThanOrEqualTo: addAndRemoveButton.topAnchor, constant: -10),
-        ])
-        
-//        NSLayoutConstraint.activate([
-//            addToWatchlistButton.heightAnchor.constraint(equalToConstant: 35),
-//            addToWatchlistButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-//            addToWatchlistButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -15),
-//            addToWatchlistButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -18)
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            watchTrailerButton.heightAnchor.constraint(equalToConstant: 35),
-//            watchTrailerButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 15),
-//            watchTrailerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-//            watchTrailerButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -18)
-//        ])
+            overviewLabel.bottomAnchor.constraint(lessThanOrEqualTo: addAndRemoveButton.topAnchor, constant: -20) ])
+                
         NSLayoutConstraint.activate([
             hstack.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             hstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            hstack.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -18)
-        ])
- 
+            hstack.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -18) ])
+        
+        NSLayoutConstraint.activate([
+            vstack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20),
+            vstack.bottomAnchor.constraint(equalTo: posterImageView.bottomAnchor,constant: -10),
+            vstack.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 20),
+            vstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor) ])
     }
     
     @objc private func addToWatchlist() {
