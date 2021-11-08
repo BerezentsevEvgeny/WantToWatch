@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = customTabBarController
         window.makeKeyAndVisible()
         self.window = window
-        
         URLCache.shared.memoryCapacity = 25_000_000
         URLCache.shared.diskCapacity = 50_000_000
 

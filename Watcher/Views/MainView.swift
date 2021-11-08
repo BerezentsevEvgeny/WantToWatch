@@ -53,5 +53,4 @@ class MainView: UIView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-  
 }

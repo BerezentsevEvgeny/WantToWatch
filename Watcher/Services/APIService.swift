@@ -45,7 +45,6 @@ class APIService {
                 print(response.error?.localizedDescription ?? "No description")
                 return
             }
-            
             do {
                 let decoder = JSONDecoder()
                 let searchedMovies = try decoder.decode(MoviesData.self, from: data)
@@ -72,7 +71,6 @@ class APIService {
         }
         task.resume()
     }
-    
     
     private init() {}
 }
