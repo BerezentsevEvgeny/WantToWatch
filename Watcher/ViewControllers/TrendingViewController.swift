@@ -160,7 +160,6 @@ extension TrendingViewController: UISearchBarDelegate {
     }
 }
 
-
 extension TrendingViewController {
     // Context menu
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
