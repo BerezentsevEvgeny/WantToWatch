@@ -18,6 +18,17 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     private var trendingMovies = [Movie]()
     private let mainView = MainView()
     
+    let watchlistStorage: WatchlistStorage //
+    
+    init(watchlistStorage: WatchlistStorage) {  //
+        self.watchlistStorage = watchlistStorage
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")  //
+    }
+    
     override func loadView() {
         view = mainView
     }
@@ -33,10 +44,10 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     
     private func setupView() {
         title = "Trending movies"
+        mainView.collectionView.delegate = self
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = mainView.searchController
         navigationItem.searchController?.searchBar.delegate = self
-        mainView.collectionView.delegate = self
     }
         
     private func createDataSource() {
@@ -111,7 +122,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
 // MARK: - Presenting DetailViewController
 extension TrendingViewController: SearchTableViewControllerDelegate {
     func goToDetailVC(with movie: Movie) {
-        let detailViewController = DetailViewController(selectedMovie: movie)
+        let detailViewController = DetailViewController(selectedMovie: movie, watchlistStorage: watchlistStorage)  //
 //        detailViewController.selectedMovie = movie
 //        guard let imageString = movie.posterImage else { return }
 //        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)

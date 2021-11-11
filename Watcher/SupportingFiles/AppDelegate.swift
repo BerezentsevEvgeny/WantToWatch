@@ -14,8 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let storage = WatchlistStorage() //
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let customTabBarController = CustomTabBarController()
+        let customTabBarController = CustomTabBarController(watchlistStorage: storage)
         window.rootViewController = customTabBarController
         window.makeKeyAndVisible()
         self.window = window

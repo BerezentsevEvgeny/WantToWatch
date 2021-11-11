@@ -7,10 +7,21 @@
 
 import UIKit
 
-class WatchListTableViewController: UITableViewController {
+class WatchlistTableViewController: UITableViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
-    private let storage = WatchlistStorage.shared
+//    private let storage = WatchlistStorage.shared
+    
+    let watchlistStorage: WatchlistStorage //
+    
+    init(watchlistStorage: WatchlistStorage) {  //
+        self.watchlistStorage = watchlistStorage
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")  //
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,22 +30,28 @@ class WatchListTableViewController: UITableViewController {
         setupView()
         createDatasource()
         createSnapshot()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: WatchlistStorage.shared.updateNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: WatchlistStorage.shared.updateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: watchlistStorage.updateNotification, object: nil)
     }
         
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let selectedMovie = storage.watchList[indexPath.row]
-        let detailViewController = DetailViewController(selectedMovie: selectedMovie) //
+//        let selectedMovie = storage.watchList[indexPath.row]
+        let selectedMovie = watchlistStorage.watchList[indexPath.row]
+
+        let detailViewController = DetailViewController(selectedMovie: selectedMovie, watchlistStorage: watchlistStorage) //
         navigationController?.pushViewController(detailViewController, animated: true)
 //        goToDetailVC(with: selectedMovie)
     }
         
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let removeMovie = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, Hides in
-            self?.storage.watchList.remove(at: indexPath.row)
+//            self?.storage.watchList.remove(at: indexPath.row)
+            self?.watchlistStorage.watchList.remove(at: indexPath.row)
             self?.createSnapshot()
-            self?.storage.saveWatchlist()
+//            self?.storage.saveWatchlist()
+            self?.watchlistStorage.saveWatchlist()
+
         }
         return UISwipeActionsConfiguration(actions: [removeMovie])
     }
@@ -44,19 +61,27 @@ class WatchListTableViewController: UITableViewController {
     }
 
     func checkForItems() {
-        if storage.watchList.isEmpty {
+//        if storage.watchList.isEmpty {
+//            let okAction = UIAlertAction(title: "Ok", style: .cancel)
+//            let alert = UIAlertController(title: "", message: "Saved movies will be visible here", preferredStyle: .alert)
+//            alert.addAction(okAction)
+//            present(alert, animated: true )
+//        }
+        if watchlistStorage.watchList.isEmpty {
             let okAction = UIAlertAction(title: "Ok", style: .cancel)
             let alert = UIAlertController(title: "", message: "Saved movies will be visible here", preferredStyle: .alert)
             alert.addAction(okAction)
             present(alert, animated: true )
-        } 
+        }
+        
     }
     
     // MARK: - TableView DataSource
     private func createDatasource() {
         dataSource = UITableViewDiffableDataSource<Section,Movie>(tableView: tableView) { [weak self] (tableView, indexPath, movie) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
-            let movie = self?.storage.watchList[indexPath.row]
+//            let movie = self?.storage.watchList[indexPath.row]
+            let movie = self?.watchlistStorage.watchList[indexPath.row]
             cell.configureCell(with: movie)
             return cell
         }
@@ -65,7 +90,8 @@ class WatchListTableViewController: UITableViewController {
     private func createSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section,Movie>()
         snapshot.appendSections([.first])
-        snapshot.appendItems(storage.watchList)
+//        snapshot.appendItems(storage.watchList)
+        snapshot.appendItems(watchlistStorage.watchList)
         dataSource.apply(snapshot,animatingDifferences: true)
     }
         
@@ -96,7 +122,7 @@ class WatchListTableViewController: UITableViewController {
 //    }
 //}
 
-extension WatchListTableViewController {
+extension WatchlistTableViewController {
     private enum Section {
         case first
     }

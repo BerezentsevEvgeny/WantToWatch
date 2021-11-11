@@ -20,7 +20,7 @@ class WatchlistStorage {
         }
     }
     
-    private init() {
+    init() {  //"private" removed
         watchList = fetchWatchlist()
     }
     

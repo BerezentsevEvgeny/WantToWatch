@@ -11,8 +11,9 @@ import UIKit
 class DetailViewController: UIViewController {
     
 //    var selectedMovie: Movie?
-    var selectedMovie: Movie
-        
+    let selectedMovie: Movie
+    let watchlistStorage: WatchlistStorage //
+
     let posterImageView: UIImageView = {
         let posterImageView = UIImageView()
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +26,8 @@ class DetailViewController: UIViewController {
     lazy var addAndRemoveButton: UIButton = {
         let button = UIButton()
 //        button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie!) ? "Add to list" : "Remove" , for: .normal)
-        button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie) ? "Add to list" : "Remove" , for: .normal)
+//        button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie) ? "Add to list" : "Remove" , for: .normal)
+        button.setTitle(!watchlistStorage.watchList.contains(selectedMovie) ? "Add to list" : "Remove" , for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
@@ -60,8 +62,9 @@ class DetailViewController: UIViewController {
     private var hstack = UIStackView()
     private var vstack = UIStackView()
     
-    init(selectedMovie: Movie) {
+    init(selectedMovie: Movie, watchlistStorage: WatchlistStorage) {  //
         self.selectedMovie = selectedMovie
+        self.watchlistStorage = watchlistStorage //
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -159,18 +162,34 @@ class DetailViewController: UIViewController {
     @objc func addToWatchlist() {
 //        guard let selectedMovie = selectedMovie else { return }
         
-        if !WatchlistStorage.shared.watchList.contains(selectedMovie) {
+//        if !WatchlistStorage.shared.watchList.contains(selectedMovie) {
+//            presentAlert(message: "Add to watchlist?", actionTitle: "Add") { _ in
+//                WatchlistStorage.shared.watchList.append(self.selectedMovie)  // self?
+//                WatchlistStorage.shared.saveWatchlist()
+//                self.addAndRemoveButton.setTitle("Remove", for: .normal)
+//                self.navigationController?.popViewController(animated: true)
+//            }
+//        } else {
+//            presentAlert(message: "Remove from watchlist?", actionTitle: "Remove") { _ in
+//                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: self.selectedMovie) else { return }//self?
+//                WatchlistStorage.shared.watchList.remove(at: indexPath)
+//                WatchlistStorage.shared.saveWatchlist()
+//                self.addAndRemoveButton.setTitle("Add to watchlist", for: .normal)
+//                self.navigationController?.popViewController(animated: true)
+//            }
+//        }
+        if !watchlistStorage.watchList.contains(selectedMovie) {
             presentAlert(message: "Add to watchlist?", actionTitle: "Add") { _ in
-                WatchlistStorage.shared.watchList.append(self.selectedMovie)  // self?
-                WatchlistStorage.shared.saveWatchlist()
+                self.watchlistStorage.watchList.append(self.selectedMovie)  // self?
+                self.watchlistStorage.saveWatchlist()
                 self.addAndRemoveButton.setTitle("Remove", for: .normal)
-                self.navigationController?.popViewController(animated: true)                
+                self.navigationController?.popViewController(animated: true)
             }
         } else {
             presentAlert(message: "Remove from watchlist?", actionTitle: "Remove") { _ in
-                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: self.selectedMovie) else { return }//self?
-                WatchlistStorage.shared.watchList.remove(at: indexPath)
-                WatchlistStorage.shared.saveWatchlist()
+                guard let indexPath = self.watchlistStorage.watchList.firstIndex(of: self.selectedMovie) else { return }//self?
+                self.watchlistStorage.watchList.remove(at: indexPath)
+                self.watchlistStorage.saveWatchlist()
                 self.addAndRemoveButton.setTitle("Add to watchlist", for: .normal)
                 self.navigationController?.popViewController(animated: true)
             }
