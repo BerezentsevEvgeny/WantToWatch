@@ -135,6 +135,7 @@
 				63F900D626CD468200585B7E /* ViewControllers */,
 				63A0777A26CE571B003F4B48 /* Services */,
 				63F900D526CD461600585B7E /* SupportingFiles */,
+				8CDFAF6F273CF22700209D78 /* Extensions */,
 			);
 			path = Watcher;
 			sourceTree = "<group>";
@@ -159,9 +160,16 @@
 				634C06A926DFBAC900861B26 /* DetailViewController.swift */,
 				634C06AB26DFBB2400861B26 /* WatchListTableViewController.swift */,
 				639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */,
-				8C749E84270CBDF10098177F /* UIViewController + Extension.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8CDFAF6F273CF22700209D78 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8C749E84270CBDF10098177F /* UIViewController + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EAF750E6338B4CC2FFE190E1 /* Frameworks */ = {

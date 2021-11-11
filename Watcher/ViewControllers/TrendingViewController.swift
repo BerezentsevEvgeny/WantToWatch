@@ -5,7 +5,7 @@
 //  Created by Евгений Березенцев on 18.08.2021.
 //
 
-import AlamofireImage
+//import AlamofireImage
 import UIKit
 
 protocol SearchTableViewControllerDelegate {
@@ -79,13 +79,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         let leftButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(switchMoviesSorting))
         navigationItem.leftBarButtonItem = leftButton
     }
-    
-//    @objc func presentSearch() {
-//        navigationItem.searchController = mainView.searchController
-//        navigationItem.searchController?.searchBar.delegate = self
-//        view.layoutIfNeeded()
-//    }
-    
+        
     @objc private func switchMoviesSorting() {
         let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "By title", style: .default) { _ in
@@ -112,20 +106,16 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
         goToDetailVC(with: selectedMovie)
     }
-    
-
-    
 }
 
 // MARK: - Presenting DetailViewController
 extension TrendingViewController: SearchTableViewControllerDelegate {
-    
     func goToDetailVC(with movie: Movie) {
-        let detailViewController = DetailViewController()
-        detailViewController.selectedMovie = movie
-        guard let imageString = movie.posterImage else { return }
-        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)  // quality
-        detailViewController.posterImageView.af.setImage(withURL: url!)
+        let detailViewController = DetailViewController(selectedMovie: movie)
+//        detailViewController.selectedMovie = movie
+//        guard let imageString = movie.posterImage else { return }
+//        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
+//        detailViewController.posterImageView.af.setImage(withURL: url!)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
@@ -159,12 +149,6 @@ extension TrendingViewController: UISearchBarDelegate {
     }
 }
 
-extension TrendingViewController {
-    private enum Sections {
-        case main
-    }
-}
-
 
 extension TrendingViewController {
     // Context menu
@@ -192,10 +176,14 @@ extension TrendingViewController {
                 return nil
             }
         }
-        
         return configuration
     }
-    
+}
+
+extension TrendingViewController {
+    private enum Sections {
+        case main
+    }
 }
 
 

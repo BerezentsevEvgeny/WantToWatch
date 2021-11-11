@@ -25,8 +25,8 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 10  //
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 5
-        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 6
+        layer.shadowOpacity = 0.8
         layer.shadowOffset = .zero
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         

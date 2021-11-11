@@ -19,13 +19,15 @@ class WatchListTableViewController: UITableViewController {
         setupView()
         createDatasource()
         createSnapshot()
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: WatchlistStorage.shared.updateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: WatchlistStorage.shared.updateNotification, object: nil)
     }
         
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let selectedMovie = storage.watchList[indexPath.row]
-        goToDetailVC(with: selectedMovie)
+        let detailViewController = DetailViewController(selectedMovie: selectedMovie) //
+        navigationController?.pushViewController(detailViewController, animated: true)
+//        goToDetailVC(with: selectedMovie)
     }
         
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -37,7 +39,7 @@ class WatchListTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [removeMovie])
     }
     
-    @objc func reload() {
+    @objc func reloadData() {
         createSnapshot()
     }
 
@@ -50,8 +52,7 @@ class WatchListTableViewController: UITableViewController {
         } 
     }
     
-    // MARK: - Table view data source
-
+    // MARK: - TableView DataSource
     private func createDatasource() {
         dataSource = UITableViewDiffableDataSource<Section,Movie>(tableView: tableView) { [weak self] (tableView, indexPath, movie) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: WatchlistTableViewCell.identifier, for: indexPath) as! WatchlistTableViewCell
@@ -80,23 +81,20 @@ class WatchListTableViewController: UITableViewController {
         tableView.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
     }
     
-
 }
 
-extension WatchListTableViewController: SearchTableViewControllerDelegate {
-    func goToDetailVC(with movie: Movie) {
-        let detailViewController = DetailViewController()
-        detailViewController.selectedMovie = movie
-        guard let imageString = movie.posterImage else { return }
-        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
-        detailViewController.posterImageView.af.setImage(withURL: url!)
-        navigationController?.pushViewController(detailViewController, animated: true)
-    }
-    
-    
-    
-}
-
+//// MARK: - Presenting DetailViewController
+//extension WatchListTableViewController: SearchTableViewControllerDelegate {
+//    func goToDetailVC(with movie: Movie) {
+////        let detailViewController = DetailViewController()
+//        let detailViewController = DetailViewController(selectedMovie: movie)
+////        detailViewController.selectedMovie = movie
+////        guard let imageString = movie.posterImage else { return }
+////        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
+////        detailViewController.posterImageView.af.setImage(withURL: url!)
+//        navigationController?.pushViewController(detailViewController, animated: true)
+//    }
+//}
 
 extension WatchListTableViewController {
     private enum Section {
