@@ -1,8 +1,8 @@
 //
-//  WatchListTableViewController.swift
+//  WatchlistTableViewController.swift
 //  Watcher
 //
-//  Created by Евгений Березенцев on 01.09.2021.
+//  Created by Евгений Березенцев on 14.11.2021.
 //
 
 import UIKit
@@ -10,7 +10,6 @@ import UIKit
 class WatchlistTableViewController: UITableViewController {
     
     let watchlistStorage: WatchlistStorage
-    
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
     
