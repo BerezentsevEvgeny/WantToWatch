@@ -11,6 +11,7 @@ class WatchlistTableViewController: UITableViewController {
     
     let watchlistStorage: WatchlistStorage
     
+    
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
     
     init(watchlistStorage: WatchlistStorage) {
