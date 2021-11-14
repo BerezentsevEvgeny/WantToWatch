@@ -178,5 +178,4 @@ class DetailViewController: UIViewController {
             application.open(webURL as URL)
         }
     }
-    
 }
