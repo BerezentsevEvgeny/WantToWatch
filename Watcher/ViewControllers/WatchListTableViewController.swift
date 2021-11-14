@@ -9,7 +9,6 @@ import UIKit
 
 class WatchlistTableViewController: UITableViewController {
     
-    //test
     let watchlistStorage: WatchlistStorage
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
@@ -34,7 +33,6 @@ class WatchlistTableViewController: UITableViewController {
         
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-//        let selectedMovie = storage.watchList[indexPath.row]
         let selectedMovie = watchlistStorage.watchList[indexPath.row]
         let detailViewController = DetailViewController(selectedMovie: selectedMovie, watchlistStorage: watchlistStorage) //
         navigationController?.pushViewController(detailViewController, animated: true)
@@ -87,7 +85,7 @@ class WatchlistTableViewController: UITableViewController {
     
     private func setupView() {
         title = "Watchlist"
-        tableView.rowHeight = 100
+        tableView.rowHeight = 140
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: watchlistStorage.updateNotification, object: nil)

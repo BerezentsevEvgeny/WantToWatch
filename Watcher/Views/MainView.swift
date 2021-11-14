@@ -15,15 +15,7 @@ class MainView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-    
-//    var searchController: UISearchController = {
-//        let searchController = UISearchController(searchResultsController: SearchTableViewController())
-//        searchController.searchBar.placeholder = "Enter movie name to search"
-//        searchController.showsSearchResultsController = true
-//        searchController.definesPresentationContext = true
-//        return searchController
-//    }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupSubviews()

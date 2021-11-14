@@ -15,7 +15,8 @@ class WatchlistTableViewCell: UITableViewCell {
         guard let movie = movie else { return }
         var content = defaultContentConfiguration()
         content.text = movie.title
-        content.secondaryText = movie.year
+        content.textProperties.font = .systemFont(ofSize: 20, weight: .medium)
+        content.secondaryText = movie.year?.replacingOccurrences(of: "-", with: ".")
         content.imageProperties.cornerRadius = 4
         guard let urlString = movie.posterImage, let url = URL(string: "https://image.tmdb.org/t/p/w200" + urlString) else  { return }
         APIService.shared.fetchImage(from: url) { result in

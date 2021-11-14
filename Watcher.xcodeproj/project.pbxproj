@@ -130,11 +130,11 @@
 		63F900C026CD402400585B7E /* Watcher */ = {
 			isa = PBXGroup;
 			children = (
+				63F900D526CD461600585B7E /* SupportingFiles */,
 				634C06B226DFD89300861B26 /* Models */,
 				634C06AD26DFC91A00861B26 /* Views */,
 				63F900D626CD468200585B7E /* ViewControllers */,
 				63A0777A26CE571B003F4B48 /* Services */,
-				63F900D526CD461600585B7E /* SupportingFiles */,
 				8CDFAF6F273CF22700209D78 /* Extensions */,
 			);
 			path = Watcher;

@@ -5,7 +5,6 @@
 //  Created by Евгений Березенцев on 18.08.2021.
 //
 
-//import AlamofireImage
 import UIKit
 
 protocol SearchTableViewControllerDelegate {
@@ -20,13 +19,13 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     private var trendingMovies = [Movie]()
     private let mainView = MainView()
         
-    init(watchlistStorage: WatchlistStorage) {  //
+    init(watchlistStorage: WatchlistStorage) {
         self.watchlistStorage = watchlistStorage
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")  //
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
@@ -36,19 +35,17 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupSearchController() //
+        setupSearchController()
         getTrendingMovies()
         configBarButtons()
         createDataSource()
         createSnapshot()
     }
-    
+        
     private func setupView() {
         title = "Trending movies"
         mainView.collectionView.delegate = self
         navigationController?.navigationBar.prefersLargeTitles = true
-////        navigationItem.searchController = mainView.searchController
-//        navigationItem.searchController?.searchBar.delegate = self
     }
     
     private func setupSearchController() {
@@ -101,7 +98,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         navigationItem.leftBarButtonItem = leftButton
     }
         
-    @objc private func switchMoviesSorting() {
+    @objc func switchMoviesSorting() {
         let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "By title", style: .default) { _ in
             self.trendingMovies = (self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" })
@@ -132,11 +129,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
 // MARK: - Presenting DetailViewController
 extension TrendingViewController: SearchTableViewControllerDelegate {
     func goToDetailVC(with movie: Movie) {
-        let detailViewController = DetailViewController(selectedMovie: movie, watchlistStorage: watchlistStorage)  //
-//        detailViewController.selectedMovie = movie
-//        guard let imageString = movie.posterImage else { return }
-//        let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString)
-//        detailViewController.posterImageView.af.setImage(withURL: url!)
+        let detailViewController = DetailViewController(selectedMovie: movie, watchlistStorage: watchlistStorage)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

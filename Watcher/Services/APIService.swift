@@ -12,8 +12,10 @@ class APIService {
     static let shared = APIService()
     
     let myApiKey = "api_key=7f436759c524bf275d9293a80907af37"
+    
+    private init() {}
             
-    //MARK: - Fetch trending movies
+    // Fetch trending movies
     func getTrendingMoviesData(complition: @escaping (Result<MoviesData,Error>) -> Void) {
         
         AF.request("https://api.themoviedb.org/3/movie/popular?" + myApiKey
@@ -32,7 +34,7 @@ class APIService {
         }
     }
     
-    //MARK: - Fetch searching movies
+    // Fetch searching movies
     func getSearchedMoviesData(lookingForMovie: String, completition: @escaping (Result<MoviesData, Error>) -> Void) {
         
         let apiURL1 = "https://api.themoviedb.org/3/search/movie?"
@@ -57,7 +59,7 @@ class APIService {
         }
     }
     
-    //MARK: - Fetch searching image
+    // Fetch searching image
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -71,6 +73,4 @@ class APIService {
         }
         task.resume()
     }
-    
-    private init() {}
 }

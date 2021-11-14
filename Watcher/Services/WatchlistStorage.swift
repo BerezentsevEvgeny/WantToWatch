@@ -8,27 +8,18 @@
 import Foundation
 
 class WatchlistStorage {
-    
-//    static let shared = WatchlistStorage()
-    
-    let updateNotification = Notification.Name("watchlistUpdated")
-    let userDefaults = UserDefaults.standard
-    
+        
     var watchList = [Movie]() {
         didSet {
-//            NotificationCenter.default.post(name: WatchlistStorage.shared.updateNotification, object: nil)
             NotificationCenter.default.post(name: updateNotification, object: nil)
         }
     }
     
+    let updateNotification = Notification.Name("watchlistUpdated")
+    let userDefaults = UserDefaults.standard
+    
     init() {
-        watchList = fetchWatchlist()
-    }
-        
-    func fetchWatchlist() -> [Movie] {
-        guard let data = UserDefaults.standard.object(forKey: "watchlist") as? Data else { return [] }
-        guard let savedWatchlist = try? JSONDecoder().decode([Movie].self, from: data) else { return [] }
-        return savedWatchlist
+        fetchWatchlist()
     }
     
     func saveWatchlist() {
@@ -45,6 +36,13 @@ class WatchlistStorage {
     func append(_ selectedMovie: Movie) {
         watchList.append(selectedMovie)
         saveWatchlist()
+    }
+    
+    private func fetchWatchlist() {
+        if let data = UserDefaults.standard.object(forKey: "watchlist") as? Data {
+            guard let savedWatchlist = try? JSONDecoder().decode([Movie].self, from: data) else { return }
+            watchList = savedWatchlist
+        }
     }
     
 }
