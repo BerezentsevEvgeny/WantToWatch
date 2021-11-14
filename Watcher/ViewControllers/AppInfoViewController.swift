@@ -66,7 +66,6 @@ class AppInfoViewController: UIViewController {
         vstack.spacing = 20
         vstack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vstack)
-        
     }
     
     private func configureButtons() {
