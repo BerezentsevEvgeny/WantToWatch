@@ -14,17 +14,17 @@ protocol SearchTableViewControllerDelegate {
 
 class TrendingViewController: UIViewController, UICollectionViewDelegate {
     
+    let watchlistStorage: WatchlistStorage
+        
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
     private var trendingMovies = [Movie]()
     private let mainView = MainView()
-    
-    let watchlistStorage: WatchlistStorage //
-    
+        
     init(watchlistStorage: WatchlistStorage) {  //
         self.watchlistStorage = watchlistStorage
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")  //
     }
@@ -36,6 +36,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupSearchController() //
         getTrendingMovies()
         configBarButtons()
         createDataSource()
@@ -46,7 +47,16 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         title = "Trending movies"
         mainView.collectionView.delegate = self
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = mainView.searchController
+////        navigationItem.searchController = mainView.searchController
+//        navigationItem.searchController?.searchBar.delegate = self
+    }
+    
+    private func setupSearchController() {
+        let searchController = UISearchController(searchResultsController: SearchTableViewController(watchlistStorage: watchlistStorage))
+        searchController.searchBar.placeholder = "Enter movie name to search"
+        searchController.definesPresentationContext = true
+        searchController.showsSearchResultsController = true
+        navigationItem.searchController = searchController
         navigationItem.searchController?.searchBar.delegate = self
     }
         
@@ -161,39 +171,37 @@ extension TrendingViewController: UISearchBarDelegate {
 }
 
 extension TrendingViewController {
-    // Context menu
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let selectedMovie = trendingMovies[indexPath.row]
-        
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
-                if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
-                    WatchlistStorage.shared.watchList.append(selectedMovie)
-                    WatchlistStorage.shared.saveWatchlist()
-                }
-            }
-            let remove = UIAction(title: "Remove", image: UIImage(systemName: "minus"   ), attributes: .destructive, state: .off ) { _ in
-                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: selectedMovie) else { return }
-                WatchlistStorage.shared.watchList.remove(at: indexPath)
-                WatchlistStorage.shared.saveWatchlist()
-            }
-
-            if #available(iOS 15.0, *) {
-                
-                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children:
-                                WatchlistStorage.shared.watchList.contains(selectedMovie) ? [remove] : [toWatchlist])
-            } else {
-                return nil
-            }
-        }
-        return configuration
-    }
-}
-
-extension TrendingViewController {
     private enum Sections {
         case main
     }
 }
 
-
+//extension TrendingViewController {
+//    // Context menu
+//    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        let selectedMovie = trendingMovies[indexPath.row]
+//
+//        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+//            let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
+//                if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
+//                    WatchlistStorage.shared.watchList.append(selectedMovie)
+//                    WatchlistStorage.shared.saveWatchlist()
+//                }
+//            }
+//            let remove = UIAction(title: "Remove", image: UIImage(systemName: "minus"   ), attributes: .destructive, state: .off ) { _ in
+//                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: selectedMovie) else { return }
+//                WatchlistStorage.shared.watchList.remove(at: indexPath)
+//                WatchlistStorage.shared.saveWatchlist()
+//            }
+//
+//            if #available(iOS 15.0, *) {
+//
+//                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children:
+//                                WatchlistStorage.shared.watchList.contains(selectedMovie) ? [remove] : [toWatchlist])
+//            } else {
+//                return nil
+//            }
+//        }
+//        return configuration
+//    }
+//}

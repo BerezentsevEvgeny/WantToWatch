@@ -8,22 +8,33 @@
 import UIKit
 
 class SearchTableViewController: UITableViewController {
-            
+    
     var delegate: SearchTableViewControllerDelegate?
     var searchedMovies = [Movie]()
     
+    let watchlistStorage: WatchlistStorage
+    
+    init(watchlistStorage: WatchlistStorage) {
+        self.watchlistStorage = watchlistStorage
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")  //
+    }
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        searchedMovies.count //
+        searchedMovies.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
-        let movie = searchedMovies[indexPath.row] //
+        let movie = searchedMovies[indexPath.row]
         cell.configureCell(with: movie)
         return cell
     }
@@ -36,32 +47,28 @@ class SearchTableViewController: UITableViewController {
     
     private func setupTableView() {
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
-        tableView.rowHeight = 130
         tableView.keyboardDismissMode = .onDrag
+        tableView.rowHeight = 130
     }
 }
 
 extension SearchTableViewController {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let addToWatchlist = UIContextualAction(style: .normal, title: "To Watchlist") { [weak self] _, _, Hides in
-            let selectedMovie = self?.searchedMovies[indexPath.row]
-            if !WatchlistStorage.shared.watchList.contains(selectedMovie!) {
-                WatchlistStorage.shared.watchList.append(selectedMovie!)
-                WatchlistStorage.shared.saveWatchlist()
-            } else {
-                let alert = UIAlertController(title: "Already in watchlist", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                alert.addAction(okAction)
-                self?.present(alert, animated: true)
-            }
-            Hides(true)
+        
+        let selectedMovie = self.searchedMovies[indexPath.row]
+        let addAction = UIContextualAction(style: .normal, title: "Add") { _, _, hides in
+            self.watchlistStorage.watchList.append(selectedMovie)
+            self.watchlistStorage.saveWatchlist()
+            hides(true)
         }
-        addToWatchlist.backgroundColor = .systemBlue
-        return UISwipeActionsConfiguration(actions: [addToWatchlist])
+        addAction.backgroundColor = .systemBlue
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, hides in
+            self.watchlistStorage.remove(selectedMovie)
+            hides(true)
+        }
+        return UISwipeActionsConfiguration(actions: [watchlistStorage.watchList.contains(selectedMovie) ? deleteAction : addAction])
     }
 }
-
-
-    
 

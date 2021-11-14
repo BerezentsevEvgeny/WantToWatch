@@ -5,14 +5,12 @@
 //  Created by Евгений Березенцев on 01.09.2021.
 //
 
-import AlamofireImage //?
-import UIKit
+import AlamofireImage
 
 class DetailViewController: UIViewController {
     
-//    var selectedMovie: Movie?
     let selectedMovie: Movie
-    let watchlistStorage: WatchlistStorage //
+    let watchlistStorage: WatchlistStorage
 
     let posterImageView: UIImageView = {
         let posterImageView = UIImageView()
@@ -25,8 +23,6 @@ class DetailViewController: UIViewController {
     
     lazy var addAndRemoveButton: UIButton = {
         let button = UIButton()
-//        button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie!) ? "Add to list" : "Remove" , for: .normal)
-//        button.setTitle(!WatchlistStorage.shared.watchList.contains(selectedMovie) ? "Add to list" : "Remove" , for: .normal)
         button.setTitle(!watchlistStorage.watchList.contains(selectedMovie) ? "Add to list" : "Remove" , for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -80,7 +76,6 @@ class DetailViewController: UIViewController {
         setConstraints()
     }
     
-    // test setting image
     private func setPosterImage() {
         guard let imageString = selectedMovie.posterImage else { return }
         guard let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString) else { return }
@@ -88,8 +83,6 @@ class DetailViewController: UIViewController {
     }
     
     private func setViews() {
-//        title = selectedMovie?.title
-//        overviewLabel.text = selectedMovie?.overview
         title = selectedMovie.title
         overviewLabel.text = selectedMovie.overview
         view.backgroundColor = .systemBackground
@@ -123,9 +116,6 @@ class DetailViewController: UIViewController {
             $0.textColor = .white
             $0.textAlignment = .center
         }
-//        releaseYearLabel.text = "Year: \(selectedMovie?.year?.replacingOccurrences(of: "-", with: ".") ?? "Not available")"
-//        popularityLabel.text = "Popularity: \(lroundf(selectedMovie?.popularity ?? 0))"
-//        ratingLabel.text = "Rating: \(round(selectedMovie?.rate ?? 0.0))"
         releaseYearLabel.text = "Year: \(selectedMovie.year?.replacingOccurrences(of: "-", with: ".") ?? "Not available")"
         popularityLabel.text = "Popularity: \(lroundf(selectedMovie.popularity ?? 0))"
         ratingLabel.text = "Rating: \(round(selectedMovie.rate ?? 0.0))"
@@ -160,36 +150,15 @@ class DetailViewController: UIViewController {
     }
     
     @objc func addToWatchlist() {
-//        guard let selectedMovie = selectedMovie else { return }
-        
-//        if !WatchlistStorage.shared.watchList.contains(selectedMovie) {
-//            presentAlert(message: "Add to watchlist?", actionTitle: "Add") { _ in
-//                WatchlistStorage.shared.watchList.append(self.selectedMovie)  // self?
-//                WatchlistStorage.shared.saveWatchlist()
-//                self.addAndRemoveButton.setTitle("Remove", for: .normal)
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        } else {
-//            presentAlert(message: "Remove from watchlist?", actionTitle: "Remove") { _ in
-//                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: self.selectedMovie) else { return }//self?
-//                WatchlistStorage.shared.watchList.remove(at: indexPath)
-//                WatchlistStorage.shared.saveWatchlist()
-//                self.addAndRemoveButton.setTitle("Add to watchlist", for: .normal)
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
         if !watchlistStorage.watchList.contains(selectedMovie) {
             presentAlert(message: "Add to watchlist?", actionTitle: "Add") { _ in
-                self.watchlistStorage.watchList.append(self.selectedMovie)  // self?
-                self.watchlistStorage.saveWatchlist()
+                self.watchlistStorage.append(self.selectedMovie)
                 self.addAndRemoveButton.setTitle("Remove", for: .normal)
                 self.navigationController?.popViewController(animated: true)
             }
         } else {
             presentAlert(message: "Remove from watchlist?", actionTitle: "Remove") { _ in
-                guard let indexPath = self.watchlistStorage.watchList.firstIndex(of: self.selectedMovie) else { return }//self?
-                self.watchlistStorage.watchList.remove(at: indexPath)
-                self.watchlistStorage.saveWatchlist()
+                self.watchlistStorage.remove(self.selectedMovie)
                 self.addAndRemoveButton.setTitle("Add to watchlist", for: .normal)
                 self.navigationController?.popViewController(animated: true)
             }
@@ -197,8 +166,6 @@ class DetailViewController: UIViewController {
     }
     
     @objc func watchTrailer() {
-//        guard let query = selectedMovie?.title?.replacingOccurrences(of: " ", with: "+") else { return }
-//        let escapedYoutubeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let query = selectedMovie.title?.replacingOccurrences(of: " ", with: "+") else { return }
         let escapedYoutubeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         let appURL = NSURL(string: "youtube://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!

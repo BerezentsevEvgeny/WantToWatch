@@ -27,7 +27,7 @@ class SearchTableViewCell: UITableViewCell {
                     self.contentConfiguration = content
                 }
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
             }
         }
     }
