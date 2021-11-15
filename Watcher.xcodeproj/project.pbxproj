@@ -24,8 +24,19 @@
 		63F900CE26CD402500585B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F900CC26CD402500585B7E /* LaunchScreen.storyboard */; };
 		8C1A2A3F2741969B00510A6F /* WatchlistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1A2A3E2741969B00510A6F /* WatchlistTableViewController.swift */; };
 		8C749E85270CBDF10098177F /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C749E84270CBDF10098177F /* UIViewController + Extension.swift */; };
+		8CCB9DB327423A4B0071C112 /* WatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB9DB227423A4B0071C112 /* WatcherTests.swift */; };
 		9718A97419397D0123F26A6C /* Pods_Watcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8CCB9DB427423A4B0071C112 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63F900B626CD402400585B7E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63F900BD26CD402400585B7E;
+			remoteInfo = Watcher;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2546F2F46EBD870FABD217E5 /* Pods-Watcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watcher.release.xcconfig"; path = "Target Support Files/Pods-Watcher/Pods-Watcher.release.xcconfig"; sourceTree = "<group>"; };
@@ -48,6 +59,8 @@
 		63F900CF26CD402500585B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C1A2A3E2741969B00510A6F /* WatchlistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTableViewController.swift; sourceTree = "<group>"; };
 		8C749E84270CBDF10098177F /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		8CCB9DB027423A4B0071C112 /* WatcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CCB9DB227423A4B0071C112 /* WatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatcherTests.swift; sourceTree = "<group>"; };
 		CD39423BEBC456BFEC0FEEC3 /* Pods_Watcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD56BED05684663980AA2EE1 /* Pods-Watcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watcher.debug.xcconfig"; path = "Target Support Files/Pods-Watcher/Pods-Watcher.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +71,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9718A97419397D0123F26A6C /* Pods_Watcher.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CCB9DAD27423A4B0071C112 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				63F900C026CD402400585B7E /* Watcher */,
+				8CCB9DB127423A4B0071C112 /* WatcherTests */,
 				63F900BF26CD402400585B7E /* Products */,
 				5494CEDD5F4B6EDD30023E57 /* Pods */,
 				EAF750E6338B4CC2FFE190E1 /* Frameworks */,
@@ -123,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				63F900BE26CD402400585B7E /* Watcher.app */,
+				8CCB9DB027423A4B0071C112 /* WatcherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +186,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		8CCB9DB127423A4B0071C112 /* WatcherTests */ = {
+			isa = PBXGroup;
+			children = (
+				8CCB9DB227423A4B0071C112 /* WatcherTests.swift */,
+			);
+			path = WatcherTests;
+			sourceTree = "<group>";
+		};
 		8CDFAF6F273CF22700209D78 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,17 +232,39 @@
 			productReference = 63F900BE26CD402400585B7E /* Watcher.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8CCB9DAF27423A4B0071C112 /* WatcherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CCB9DB827423A4B0071C112 /* Build configuration list for PBXNativeTarget "WatcherTests" */;
+			buildPhases = (
+				8CCB9DAC27423A4B0071C112 /* Sources */,
+				8CCB9DAD27423A4B0071C112 /* Frameworks */,
+				8CCB9DAE27423A4B0071C112 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8CCB9DB527423A4B0071C112 /* PBXTargetDependency */,
+			);
+			name = WatcherTests;
+			productName = WatcherTests;
+			productReference = 8CCB9DB027423A4B0071C112 /* WatcherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		63F900B626CD402400585B7E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					63F900BD26CD402400585B7E = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					8CCB9DAF27423A4B0071C112 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 63F900BD26CD402400585B7E;
 					};
 				};
 			};
@@ -230,6 +282,7 @@
 			projectRoot = "";
 			targets = (
 				63F900BD26CD402400585B7E /* Watcher */,
+				8CCB9DAF27423A4B0071C112 /* WatcherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -241,6 +294,13 @@
 			files = (
 				63F900CE26CD402500585B7E /* LaunchScreen.storyboard in Resources */,
 				63F900CB26CD402500585B7E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8CCB9DAE27423A4B0071C112 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +371,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8CCB9DAC27423A4B0071C112 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CCB9DB327423A4B0071C112 /* WatcherTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8CCB9DB527423A4B0071C112 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63F900BD26CD402400585B7E /* Watcher */;
+			targetProxy = 8CCB9DB427423A4B0071C112 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		63F900CC26CD402500585B7E /* LaunchScreen.storyboard */ = {
@@ -489,6 +565,56 @@
 			};
 			name = Release;
 		};
+		8CCB9DB627423A4B0071C112 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F824GPAVR5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.berezentsevev-ev.WatcherTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watcher.app/Watcher";
+			};
+			name = Debug;
+		};
+		8CCB9DB727423A4B0071C112 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F824GPAVR5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.berezentsevev-ev.WatcherTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watcher.app/Watcher";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,6 +632,15 @@
 			buildConfigurations = (
 				63F900D326CD402500585B7E /* Debug */,
 				63F900D426CD402500585B7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8CCB9DB827423A4B0071C112 /* Build configuration list for PBXNativeTarget "WatcherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CCB9DB627423A4B0071C112 /* Debug */,
+				8CCB9DB727423A4B0071C112 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
