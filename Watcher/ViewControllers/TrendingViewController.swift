@@ -19,7 +19,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     private var trendingMovies = [Movie]()
     private let mainView = MainView()
         
-    init(watchlistStorage: WatchlistStorage) {
+    init(watchlistStorage: WatchlistStorage) { 
         self.watchlistStorage = watchlistStorage
         super.init(nibName: nil, bundle: nil)
     }

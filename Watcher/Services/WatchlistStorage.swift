@@ -7,8 +7,18 @@
 
 import Foundation
 
+//protocol WatchlistStorageProtocol {
+//    var watchList: [Movie] { get set}
+//    var updateNotification: Notification.Name { get }
+//
+//    func fetchWatchlist()
+//    func saveWatchlist()
+//    func remove(_ selectedMovie: Movie)
+//    func append(_ selectedMovie: Movie)
+//}
+
 class WatchlistStorage {
-        
+    
     var watchList = [Movie]() {
         didSet {
             NotificationCenter.default.post(name: updateNotification, object: nil)
@@ -38,7 +48,7 @@ class WatchlistStorage {
         saveWatchlist()
     }
     
-    private func fetchWatchlist() {
+    func fetchWatchlist() {
         if let data = UserDefaults.standard.object(forKey: "watchlist") as? Data {
             guard let savedWatchlist = try? JSONDecoder().decode([Movie].self, from: data) else { return }
             watchList = savedWatchlist

@@ -14,7 +14,7 @@ class SearchTableViewController: UITableViewController {
     
     let watchlistStorage: WatchlistStorage
     
-    init(watchlistStorage: WatchlistStorage) {
+    init(watchlistStorage: WatchlistStorage) { 
         self.watchlistStorage = watchlistStorage
         super.init(nibName: nil, bundle: nil)
     }

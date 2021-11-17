@@ -58,9 +58,9 @@ class DetailViewController: UIViewController {
     private var hstack = UIStackView()
     private var vstack = UIStackView()
     
-    init(selectedMovie: Movie, watchlistStorage: WatchlistStorage) {  //
+    init(selectedMovie: Movie, watchlistStorage: WatchlistStorage) {
         self.selectedMovie = selectedMovie
-        self.watchlistStorage = watchlistStorage //
+        self.watchlistStorage = watchlistStorage 
         super.init(nibName: nil, bundle: nil)
     }
     
