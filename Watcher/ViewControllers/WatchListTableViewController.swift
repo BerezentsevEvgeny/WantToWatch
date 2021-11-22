@@ -13,11 +13,11 @@ class WatchlistTableViewController: UITableViewController {
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
     
-    init(watchlistStorage: WatchlistStorage) {
+    init(watchlistStorage: WatchlistStorage) { 
         self.watchlistStorage = watchlistStorage
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

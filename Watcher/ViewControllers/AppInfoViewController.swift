@@ -37,7 +37,7 @@ class AppInfoViewController: UIViewController {
         authorLabel.text = "Developer: \n Evgeny Berezentsev"
         authorLabel.numberOfLines = 0
         authorLabel.textAlignment = .center
-        authorLabel.font = .systemFont(ofSize: 20)
+        authorLabel.font = .systemFont(ofSize: 22)
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorLabel
     }()
@@ -72,23 +72,20 @@ class AppInfoViewController: UIViewController {
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissAction))
         navigationItem.rightBarButtonItem = doneButton
         setupButton(gitButton, title: "GitHub", action: #selector(showMyGitHub))
-        setupButton(appSiteButton, title: "App Website", action: #selector(showAppSite))
+        setupButton(appSiteButton, title: "App Support", action: #selector(showAppSite))
     }
         
     private func setConstraints() {
         let margins = view.layoutMarginsGuide
-        
         NSLayoutConstraint.activate([
             tmdbLogo.topAnchor.constraint(equalTo: margins.topAnchor, constant: 50),
-            tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
-
+            tmdbLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor) ])
+        
         NSLayoutConstraint.activate([
             vstack.topAnchor.constraint(equalTo: tmdbLogo.bottomAnchor, constant: 50),
             vstack.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -50),
             vstack.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20),
-            vstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20),
-        ])
+            vstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20) ])
     }
         
     @objc func dismissAction() {
