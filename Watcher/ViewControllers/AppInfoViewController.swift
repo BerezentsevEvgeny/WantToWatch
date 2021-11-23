@@ -115,5 +115,4 @@ extension AppInfoViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: action, for: .touchUpInside)
     }
-    
 }

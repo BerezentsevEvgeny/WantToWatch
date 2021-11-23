@@ -54,5 +54,4 @@ class WatchlistStorage {
             watchList = savedWatchlist
         }
     }
-    
 }

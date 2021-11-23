@@ -35,7 +35,6 @@ class TrendingCollectionViewCell: UICollectionViewCell {
             posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             posterImageView.topAnchor.constraint(equalTo: topAnchor),
             posterImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        
         ])
     }
 }

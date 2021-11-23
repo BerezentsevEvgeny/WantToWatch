@@ -119,7 +119,6 @@ class DetailViewController: UIViewController {
         releaseYearLabel.text = "Year: \(selectedMovie.year?.replacingOccurrences(of: "-", with: ".") ?? "Not available")"
         popularityLabel.text = "Popularity: \(lroundf(selectedMovie.popularity ?? 0))"
         ratingLabel.text = "Rating: \(round(selectedMovie.rate ?? 0.0))"
-        
     }
      
     private func setConstraints() {
