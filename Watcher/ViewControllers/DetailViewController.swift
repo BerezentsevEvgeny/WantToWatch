@@ -74,8 +74,27 @@ class DetailViewController: UIViewController {
         setPosterImage()
         setupLabels()
         setConstraints()
+        setupLines()
     }
     
+    func setupLines() {
+
+
+
+        navigationItem.largeTitleDisplayMode = .never
+     
+        let label = UILabel()
+//        label.backgroundColor = .clear
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: 27)
+        label.textAlignment = .center
+        label.text = selectedMovie.title
+        label.adjustsFontSizeToFitWidth = true
+        
+        navigationItem.titleView = label
+        
+    }
+        
     private func setPosterImage() {
         guard let imageString = selectedMovie.posterImage else { return }
         guard let url = URL(string: "https://image.tmdb.org/t/p/w200" + imageString) else { return }
@@ -83,7 +102,7 @@ class DetailViewController: UIViewController {
     }
     
     private func setViews() {
-        title = selectedMovie.title
+//        title = selectedMovie.title
         overviewLabel.text = selectedMovie.overview
         view.backgroundColor = .systemBackground
         view.addSubview(posterImageView)

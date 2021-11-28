@@ -41,7 +41,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         createDataSource()
         createSnapshot()
     }
-        
+            
     private func setupView() {
         title = "Trending movies"
         mainView.collectionView.delegate = self
