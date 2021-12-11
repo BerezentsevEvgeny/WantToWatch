@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import UIKit
 
 class APIService {
     
@@ -19,12 +20,13 @@ class APIService {
     func getTrendingMoviesData(complition: @escaping (Result<MoviesData,Error>) -> Void) {
         
         AF.request("https://api.themoviedb.org/3/movie/popular?" + myApiKey
-                    + "&page=1&language=us_US").responseData { response in
-            guard let data = response.data, response.error == nil else { return }
-                        
+                   + "&page=1&language=us_US").responseData { response in
+            guard let data = response.data, response.error == nil else {
+                print(response.error?.localizedDescription ?? "No description")
+                return }
+            
             do {
-                let decoder = JSONDecoder()
-                let trendingMovies = try decoder.decode(MoviesData.self, from: data)
+                let trendingMovies = try JSONDecoder().decode(MoviesData.self, from: data)
                 DispatchQueue.main.async {
                     complition(.success(trendingMovies))
                 }
@@ -33,7 +35,7 @@ class APIService {
             }
         }
     }
-    
+        
     // Fetch searching movies
     func getSearchedMoviesData(lookingForMovie: String, completition: @escaping (Result<MoviesData, Error>) -> Void) {
         
@@ -45,11 +47,10 @@ class APIService {
         AF.request(url).responseData { response in
             guard let data = response.data else {
                 print(response.error?.localizedDescription ?? "No description")
-                return
-            }
+                return }
+            
             do {
-                let decoder = JSONDecoder()
-                let searchedMovies = try decoder.decode(MoviesData.self, from: data)
+                let searchedMovies = try JSONDecoder().decode(MoviesData.self, from: data)
                 DispatchQueue.main.async {
                     completition(.success(searchedMovies))
                 }

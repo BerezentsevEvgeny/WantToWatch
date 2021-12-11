@@ -74,25 +74,18 @@ class DetailViewController: UIViewController {
         setPosterImage()
         setupLabels()
         setConstraints()
-        setupLines()
+        setupTitle()
     }
     
-    func setupLines() {
-
-
-
+    private func setupTitle() {
         navigationItem.largeTitleDisplayMode = .never
-     
         let label = UILabel()
-//        label.backgroundColor = .clear
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 27)
         label.textAlignment = .center
         label.text = selectedMovie.title
         label.adjustsFontSizeToFitWidth = true
-        
         navigationItem.titleView = label
-        
     }
         
     private func setPosterImage() {
@@ -102,7 +95,6 @@ class DetailViewController: UIViewController {
     }
     
     private func setViews() {
-//        title = selectedMovie.title
         overviewLabel.text = selectedMovie.overview
         view.backgroundColor = .systemBackground
         view.addSubview(posterImageView)
@@ -144,7 +136,7 @@ class DetailViewController: UIViewController {
         let margins = view.layoutMarginsGuide
 
         NSLayoutConstraint.activate([
-            posterImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 10),
+            posterImageView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20),
             posterImageView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             posterImageView.widthAnchor.constraint(equalToConstant: 160),
             posterImageView.heightAnchor.constraint(equalToConstant: 240) ])
@@ -161,7 +153,7 @@ class DetailViewController: UIViewController {
             hstack.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -18) ])
         
         NSLayoutConstraint.activate([
-            vstack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20),
+            vstack.topAnchor.constraint(equalTo: margins.topAnchor, constant: 30),
             vstack.bottomAnchor.constraint(equalTo: posterImageView.bottomAnchor,constant: -10),
             vstack.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 20),
             vstack.trailingAnchor.constraint(equalTo: margins.trailingAnchor) ])
@@ -185,11 +177,10 @@ class DetailViewController: UIViewController {
     
     @objc func watchTrailer() {
         guard let query = selectedMovie.title?.replacingOccurrences(of: " ", with: "+") else { return }
-        let escapedYoutubeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        let appURL = NSURL(string: "youtube://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
-        let webURL = NSURL(string: "https://www.youtube.com/results?search_query=\(escapedYoutubeQuery!)")!
+        guard let escapedYoutubeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
+        let appURL = NSURL(string: "youtube://www.youtube.com/results?search_query=\(escapedYoutubeQuery)")!
+        let webURL = NSURL(string: "https://www.youtube.com/results?search_query=\(escapedYoutubeQuery)")!
         let application = UIApplication.shared
-        
         if application.canOpenURL(appURL as URL) {
             application.open(appURL as URL)
         } else {

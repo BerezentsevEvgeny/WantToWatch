@@ -169,32 +169,3 @@ extension TrendingViewController {
     }
 }
 
-//extension TrendingViewController {
-//    // Context menu
-//    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-//        let selectedMovie = trendingMovies[indexPath.row]
-//
-//        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-//            let toWatchlist = UIAction(title: "Add to watchlist", image: UIImage(systemName: "star"   ), state: .off) { _ in
-//                if !WatchlistStorage.shared.watchList.contains(selectedMovie) { ///
-//                    WatchlistStorage.shared.watchList.append(selectedMovie)
-//                    WatchlistStorage.shared.saveWatchlist()
-//                }
-//            }
-//            let remove = UIAction(title: "Remove", image: UIImage(systemName: "minus"   ), attributes: .destructive, state: .off ) { _ in
-//                guard let indexPath = WatchlistStorage.shared.watchList.firstIndex(of: selectedMovie) else { return }
-//                WatchlistStorage.shared.watchList.remove(at: indexPath)
-//                WatchlistStorage.shared.saveWatchlist()
-//            }
-//
-//            if #available(iOS 15.0, *) {
-//
-//                return UIMenu(title: "", subtitle: "", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children:
-//                                WatchlistStorage.shared.watchList.contains(selectedMovie) ? [remove] : [toWatchlist])
-//            } else {
-//                return nil
-//            }
-//        }
-//        return configuration
-//    }
-//}

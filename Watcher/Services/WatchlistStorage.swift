@@ -7,16 +7,6 @@
 
 import Foundation
 
-//protocol WatchlistStorageProtocol {
-//    var watchList: [Movie] { get set}
-//    var updateNotification: Notification.Name { get }
-//
-//    func fetchWatchlist()
-//    func saveWatchlist()
-//    func remove(_ selectedMovie: Movie)
-//    func append(_ selectedMovie: Movie)
-//}
-
 class WatchlistStorage {
     
     var watchList = [Movie]() {

@@ -24,25 +24,29 @@ class WatchlistTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkForItems()
+//        checkForItems()
         configInfoButton()
         setupView()
         createDatasource()
         createSnapshot()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkForItems()
+    }
         
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let selectedMovie = watchlistStorage.watchList[indexPath.row]
-        let detailViewController = DetailViewController(selectedMovie: selectedMovie, watchlistStorage: watchlistStorage) //
+        let detailViewController = DetailViewController(selectedMovie: selectedMovie, watchlistStorage: watchlistStorage)
         navigationController?.pushViewController(detailViewController, animated: true)
-//        goToDetailVC(with: selectedMovie)
     }
         
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let removeMovie = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, Hides in
             self?.watchlistStorage.watchList.remove(at: indexPath.row)
             self?.watchlistStorage.saveWatchlist()
+            self?.checkForItems() //////////////
             self?.createSnapshot()
         }
         return UISwipeActionsConfiguration(actions: [removeMovie])
@@ -54,10 +58,12 @@ class WatchlistTableViewController: UITableViewController {
 
     private func checkForItems() {
         if watchlistStorage.watchList.isEmpty {
-            let okAction = UIAlertAction(title: "Ok", style: .cancel)
-            let alert = UIAlertController(title: "", message: "Saved movies will be visible here", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .cancel) { [weak self] _ in
+                self?.tabBarController?.selectedIndex = 0
+            }
+            let alert = UIAlertController(title: "Your watchlist is empty now", message: "", preferredStyle: .alert)
             alert.addAction(okAction)
-            present(alert, animated: true )
+            present(alert, animated: true)
         }
     }
     
