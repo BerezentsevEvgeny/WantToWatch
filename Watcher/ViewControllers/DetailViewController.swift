@@ -23,7 +23,7 @@ class DetailViewController: UIViewController {
     
     lazy var addAndRemoveButton: UIButton = {
         let button = UIButton()
-        button.setTitle(!watchlistStorage.watchList.contains(selectedMovie) ? "Add to list" : "Remove" , for: .normal)
+//        button.setTitle(watchlistStorage.watchList.contains(selectedMovie) ? "Remove" : "Add to list" , for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
@@ -54,6 +54,7 @@ class DetailViewController: UIViewController {
         overviewLabel.numberOfLines = 0
         return overviewLabel
     }()
+    
         
     private var hstack = UIStackView()
     private var vstack = UIStackView()
@@ -71,10 +72,15 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
-        setPosterImage()
-        setupLabels()
         setConstraints()
         setupTitle()
+        setupLabels()
+        setPosterImage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addAndRemoveButton.setTitle(watchlistStorage.watchList.contains(selectedMovie) ? "Remove" : "Add to list" , for: .normal)
     }
     
     private func setupTitle() {
@@ -161,16 +167,16 @@ class DetailViewController: UIViewController {
     
     @objc func addToWatchlist() {
         if !watchlistStorage.watchList.contains(selectedMovie) {
-            presentAlert(message: "Add to watchlist?", actionTitle: "Add") { _ in
+            presentAlert(message: "Add to watchlist?", actionTitle: "Add") { [unowned self] _ in
                 self.watchlistStorage.append(self.selectedMovie)
                 self.addAndRemoveButton.setTitle("Remove", for: .normal)
-                self.navigationController?.popViewController(animated: true)
+//                self.navigationController?.popViewController(animated: true)
             }
         } else {
-            presentAlert(message: "Remove from watchlist?", actionTitle: "Remove") { _ in
+            presentAlert(message: "Remove from watchlist?", actionTitle: "Remove") { [unowned self] _ in
                 self.watchlistStorage.remove(self.selectedMovie)
                 self.addAndRemoveButton.setTitle("Add to watchlist", for: .normal)
-                self.navigationController?.popViewController(animated: true)
+//                self.navigationController?.popViewController(animated: true)
             }
         }
     }

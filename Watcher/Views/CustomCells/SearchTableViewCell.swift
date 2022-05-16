@@ -19,12 +19,12 @@ class SearchTableViewCell: UITableViewCell {
         content.secondaryText = movie.year
         content.imageProperties.cornerRadius = 4
         guard let urlString = movie.posterImage, let url = URL(string: "https://image.tmdb.org/t/p/w200" + urlString) else  { return }
-        APIService.shared.fetchImage(from: url) { result in
+        APIService.shared.fetchImage(from: url) { [weak self] result in
             switch result {
             case .success(let image):
                 DispatchQueue.main.async {
                     content.image = image
-                    self.contentConfiguration = content
+                    self?.contentConfiguration = content
                 }
             case .failure(let error):
                 print(error.localizedDescription)

@@ -9,6 +9,9 @@ import Foundation
 
 class WatchlistStorage {
     
+    private let watchlistKey = "watchlist" //
+    private let defaults = UserDefaults.standard
+    
     var watchList = [Movie]() {
         didSet {
             NotificationCenter.default.post(name: updateNotification, object: nil)
@@ -16,7 +19,6 @@ class WatchlistStorage {
     }
     
     let updateNotification = Notification.Name("watchlistUpdated")
-    let userDefaults = UserDefaults.standard
     
     init() {
         fetchWatchlist()
@@ -24,8 +26,10 @@ class WatchlistStorage {
     
     func saveWatchlist() {
         guard let data = try? JSONEncoder().encode(watchList) else { return }
-        userDefaults.set(data, forKey: "watchlist")
+        defaults.set(data, forKey: watchlistKey)
     }
+    
+
     
     func remove(_ selectedMovie: Movie) {
         guard let indexPath = watchList.firstIndex(of: selectedMovie) else { return }
@@ -39,9 +43,13 @@ class WatchlistStorage {
     }
     
     func fetchWatchlist() {
-        if let data = UserDefaults.standard.object(forKey: "watchlist") as? Data {
+        if let data = defaults.object(forKey: watchlistKey) as? Data {
             guard let savedWatchlist = try? JSONDecoder().decode([Movie].self, from: data) else { return }
             watchList = savedWatchlist
         }
     }
+    
+
+    
+    
 }

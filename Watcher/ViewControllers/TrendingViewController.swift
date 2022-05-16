@@ -59,10 +59,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         
     private func createDataSource() {
         let registration = UICollectionView.CellRegistration<TrendingCollectionViewCell,Movie> { cell, indexPath, movie in
-            guard let posterImage = movie.posterImage else { return }
-            let urlString = "https://image.tmdb.org/t/p/w300" + posterImage
-            let url = URL(string: urlString)!
-            cell.posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(named: "moviePlaceholder"))
+            cell.configureCell(with: movie)
         }
         
         dataSource = UICollectionViewDiffableDataSource<Sections,Movie>(collectionView: mainView.collectionView){
@@ -79,11 +76,11 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func getTrendingMovies() {
-        APIService.shared.getTrendingMoviesData { [weak self] result in
+        APIService.shared.getTrendingMoviesData { [unowned self] result in
             switch result {
             case .success(let listOf):
-                self?.trendingMovies = listOf.movies
-                self?.createSnapshot()
+                self.trendingMovies = listOf.movies
+                self.createSnapshot()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -100,15 +97,15 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         
     @objc func switchMoviesSorting() {
         let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "By title", style: .default) { _ in
-            self.trendingMovies = (self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" })
+        let action1 = UIAlertAction(title: "By title", style: .default) { [unowned self] _ in
+            self.trendingMovies = self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" }
             self.createSnapshot()
         }
-        let action2 = UIAlertAction(title: "By rating", style: .default) { _ in
+        let action2 = UIAlertAction(title: "By rating", style: .default) { [unowned self] _ in
             self.trendingMovies = self.trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 1}
             self.createSnapshot()
         }
-        let action3 = UIAlertAction(title: "By release date", style: .default) { _ in
+        let action3 = UIAlertAction(title: "By release date", style: .default) { [unowned self] _ in
             self.trendingMovies = self.trendingMovies.sorted {$0.year ?? "0" < $1.year ?? "1"}
             self.createSnapshot()
         }
@@ -117,13 +114,15 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         alert.addAction(action2)
         alert.addAction(action3)
         alert.addAction(cancelAction )
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
         goToDetailVC(with: selectedMovie)
     }
+    
+    
 }
 
 // MARK: - Presenting DetailViewController

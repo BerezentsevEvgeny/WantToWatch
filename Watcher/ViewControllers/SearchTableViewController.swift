@@ -57,17 +57,18 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let selectedMovie = self.searchedMovies[indexPath.row]
-        let addAction = UIContextualAction(style: .normal, title: "To Watchlist") { _, _, hides in
+        let addAction = UIContextualAction(style: .normal, title: "To Watchlist") { [unowned self] _, _, isDone in
             self.watchlistStorage.watchList.append(selectedMovie)
             self.watchlistStorage.saveWatchlist()
-            hides(true)
+            isDone(true)
+        }
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] _, _, isDone in
+            self.watchlistStorage.remove(selectedMovie)
+            isDone(true)
         }
         addAction.backgroundColor = .systemBlue
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, hides in
-            self.watchlistStorage.remove(selectedMovie)
-            hides(true)
-        }
         return UISwipeActionsConfiguration(actions: [watchlistStorage.watchList.contains(selectedMovie) ? deleteAction : addAction])
     }
 }
