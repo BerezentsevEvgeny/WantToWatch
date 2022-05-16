@@ -93,13 +93,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		634C06AD26DFC91A00861B26 /* Views */ = {
+		634C06AD26DFC91A00861B26 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				634C06B526DFDDA100861B26 /* CustomCells */,
 				634C06AE26DFC97800861B26 /* MainView.swift */,
+				63A0777B26CE5FC4003F4B48 /* CustomTabBarController.swift */,
 			);
-			path = Views;
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		634C06B226DFD89300861B26 /* Models */ = {
@@ -108,16 +108,6 @@
 				634C06B326DFDCBD00861B26 /* MovieModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		634C06B526DFDDA100861B26 /* CustomCells */ = {
-			isa = PBXGroup;
-			children = (
-				634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */,
-				63620CBA26E1398400B286AB /* SearchTableViewCell.swift */,
-				63F045C526E4F13D00781103 /* WatchlistTableViewCell.swift */,
-			);
-			path = CustomCells;
 			sourceTree = "<group>";
 		};
 		63A0777A26CE571B003F4B48 /* Services */ = {
@@ -154,8 +144,12 @@
 			children = (
 				63F900D526CD461600585B7E /* SupportingFiles */,
 				634C06B226DFD89300861B26 /* Models */,
-				634C06AD26DFC91A00861B26 /* Views */,
-				63F900D626CD468200585B7E /* ViewControllers */,
+				8CD1ABEB283265500003E881 /* TrendingScene */,
+				8CD1ABED283265B30003E881 /* DetailScene */,
+				8CD1ABEC2832657D0003E881 /* SearchScene */,
+				8CD1ABEE283265D10003E881 /* WatchlistScene */,
+				8CD1ABEF283266B90003E881 /* AppInfoScene */,
+				634C06AD26DFC91A00861B26 /* CustomViews */,
 				63A0777A26CE571B003F4B48 /* Services */,
 				8CDFAF6F273CF22700209D78 /* Extensions */,
 			);
@@ -173,25 +167,55 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		63F900D626CD468200585B7E /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				63A0777B26CE5FC4003F4B48 /* CustomTabBarController.swift */,
-				63F900C526CD402400585B7E /* TrendingViewController.swift */,
-				634C06B026DFD60E00861B26 /* SearchTableViewController.swift */,
-				634C06A926DFBAC900861B26 /* DetailViewController.swift */,
-				8C1A2A3E2741969B00510A6F /* WatchlistTableViewController.swift */,
-				639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		8CCB9DB127423A4B0071C112 /* WatcherTests */ = {
 			isa = PBXGroup;
 			children = (
 				8CCB9DB9274249F10071C112 /* WatchlistStorageTests.swift */,
 			);
 			path = WatcherTests;
+			sourceTree = "<group>";
+		};
+		8CD1ABEB283265500003E881 /* TrendingScene */ = {
+			isa = PBXGroup;
+			children = (
+				634C06B626DFDDC500861B26 /* TrendingCollectionViewCell.swift */,
+				63F900C526CD402400585B7E /* TrendingViewController.swift */,
+			);
+			path = TrendingScene;
+			sourceTree = "<group>";
+		};
+		8CD1ABEC2832657D0003E881 /* SearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				634C06B026DFD60E00861B26 /* SearchTableViewController.swift */,
+				63620CBA26E1398400B286AB /* SearchTableViewCell.swift */,
+			);
+			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		8CD1ABED283265B30003E881 /* DetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				634C06A926DFBAC900861B26 /* DetailViewController.swift */,
+			);
+			path = DetailScene;
+			sourceTree = "<group>";
+		};
+		8CD1ABEE283265D10003E881 /* WatchlistScene */ = {
+			isa = PBXGroup;
+			children = (
+				63F045C526E4F13D00781103 /* WatchlistTableViewCell.swift */,
+				8C1A2A3E2741969B00510A6F /* WatchlistTableViewController.swift */,
+			);
+			path = WatchlistScene;
+			sourceTree = "<group>";
+		};
+		8CD1ABEF283266B90003E881 /* AppInfoScene */ = {
+			isa = PBXGroup;
+			children = (
+				639A92CD27005CC40047FDC9 /* AppInfoViewController.swift */,
+			);
+			path = AppInfoScene;
 			sourceTree = "<group>";
 		};
 		8CDFAF6F273CF22700209D78 /* Extensions */ = {
