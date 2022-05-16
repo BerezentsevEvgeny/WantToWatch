@@ -11,12 +11,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let storage = WatchlistStorage()
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let customTabBarController = CustomTabBarController(watchlistStorage: storage)
+        let customTabBarController = CustomTabBarController()
         window.rootViewController = customTabBarController
         window.makeKeyAndVisible()
         self.window = window

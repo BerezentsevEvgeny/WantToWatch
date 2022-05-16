@@ -9,6 +9,8 @@ import Foundation
 
 class WatchlistStorage {
     
+    static let shared = WatchlistStorage() //
+    
     private let watchlistKey = "watchlist" //
     private let defaults = UserDefaults.standard
     
@@ -20,7 +22,7 @@ class WatchlistStorage {
     
     let updateNotification = Notification.Name("watchlistUpdated")
     
-    init() {
+    private init() { //
         fetchWatchlist()
     }
     

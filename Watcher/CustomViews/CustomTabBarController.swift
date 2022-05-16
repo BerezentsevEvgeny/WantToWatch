@@ -8,26 +8,15 @@
 import UIKit
 
 class CustomTabBarController: UITabBarController {
-    
-    let watchlistStorage: WatchlistStorage
-    
-    init(watchlistStorage: WatchlistStorage) {
-        self.watchlistStorage = watchlistStorage
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let tabOne = createTabBarController(vc: TrendingViewController(watchlistStorage: watchlistStorage),
+        
+        let tabOne = createTabBarController(vc: TrendingViewController(collectionViewLayout: UICollectionViewFlowLayout()),
                                             title: "Trending movies",
                                             image: UIImage(systemName: "film")!)
         
-        let tabTwo = createTabBarController(vc: WatchlistTableViewController(watchlistStorage: watchlistStorage),
+        let tabTwo = createTabBarController(vc: WatchlistTableViewController(),
                                             title: "Watchlist",
                                             image: UIImage(systemName: "list.star")!)
                 

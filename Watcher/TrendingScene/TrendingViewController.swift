@@ -11,40 +11,52 @@ protocol SearchTableViewControllerDelegate {
     func goToDetailVC(with movie: Movie)
 }
 
-class TrendingViewController: UIViewController, UICollectionViewDelegate {
+class TrendingViewController: UICollectionViewController {
+        
+    var viewModel: TrendingViewModelProtocol! {
+        didSet {
+            viewModel.getTrendingMovies {
+                self.createSnapshot()
+            }
+        }
+    }
     
-    let watchlistStorage: WatchlistStorage
+    let watchlistStorage = WatchlistStorage.shared
         
     private var dataSource: UICollectionViewDiffableDataSource<Sections,Movie>!
-    private var trendingMovies = [Movie]()
-    private let mainView = MainView()
         
-    init(watchlistStorage: WatchlistStorage) { 
-        self.watchlistStorage = watchlistStorage
-        super.init(nibName: nil, bundle: nil)
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: layout)
+        collectionView.collectionViewLayout = configureLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func loadView() {
-        view = mainView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = TrendingViewModel()
         setupView()
         setupSearchController()
-        getTrendingMovies()
         configBarButtons()
         createDataSource()
-        createSnapshot()
+//        createSnapshot()
     }
-            
+    
+    private func configureLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 20, bottom: 10, trailing: 20)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.3))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 15, trailing: 10)
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+                    
     private func setupView() {
         title = "Trending movies"
-        mainView.collectionView.delegate = self
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -62,7 +74,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
             cell.configureCell(with: movie)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Sections,Movie>(collectionView: mainView.collectionView){
+        dataSource = UICollectionViewDiffableDataSource<Sections,Movie>(collectionView: collectionView){
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: Movie) -> UICollectionViewCell? in
             collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: identifier)
         }
@@ -71,22 +83,18 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     private func createSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Sections,Movie>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(trendingMovies)
+        snapshot.appendItems(viewModel.trendingMovies)
         dataSource.apply(snapshot)
     }
     
-    private func getTrendingMovies() {
-        APIService.shared.getTrendingMoviesData { [unowned self] result in
-            switch result {
-            case .success(let listOf):
-                self.trendingMovies = listOf.movies
-                self.createSnapshot()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+    private func createSnapshot(with sortedList: [Movie]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Sections,Movie>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(sortedList)
+        dataSource.apply(snapshot)
     }
-    
+
+        
     private func configBarButtons() {
         let rightButton = UIBarButtonItem(title: "App Info", style: .done, target: self, action: #selector(presentInfoVC))
         navigationItem.rightBarButtonItem = rightButton
@@ -98,16 +106,16 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
     @objc func switchMoviesSorting() {
         let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "By title", style: .default) { [unowned self] _ in
-            self.trendingMovies = self.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" }
-            self.createSnapshot()
+            let sortedMovies = viewModel.trendingMovies.sorted {$0.title ?? "" < $1.title ?? "" }
+            self.createSnapshot(with: sortedMovies)
         }
         let action2 = UIAlertAction(title: "By rating", style: .default) { [unowned self] _ in
-            self.trendingMovies = self.trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 1}
-            self.createSnapshot()
+            let sortedMovies = viewModel.trendingMovies.sorted {$0.rate ?? 0 < $1.rate ?? 0 }
+            self.createSnapshot(with: sortedMovies)
         }
         let action3 = UIAlertAction(title: "By release date", style: .default) { [unowned self] _ in
-            self.trendingMovies = self.trendingMovies.sorted {$0.year ?? "0" < $1.year ?? "1"}
-            self.createSnapshot()
+            let sortedMovies = viewModel.trendingMovies.sorted {$0.year ?? "" < $1.year ?? "" }
+            self.createSnapshot(with: sortedMovies)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(action1)
@@ -117,7 +125,7 @@ class TrendingViewController: UIViewController, UICollectionViewDelegate {
         present(alert, animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
         goToDetailVC(with: selectedMovie)
     }

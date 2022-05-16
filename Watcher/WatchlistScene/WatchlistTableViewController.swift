@@ -9,18 +9,18 @@ import UIKit
 
 class WatchlistTableViewController: UITableViewController {
     
-    let watchlistStorage: WatchlistStorage
+    let watchlistStorage = WatchlistStorage.shared
     
     private var dataSource: UITableViewDiffableDataSource<Section,Movie>!
     
-    init(watchlistStorage: WatchlistStorage) { 
-        self.watchlistStorage = watchlistStorage
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init(watchlistStorage: WatchlistStorage) {
+//        self.watchlistStorage = watchlistStorage
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
